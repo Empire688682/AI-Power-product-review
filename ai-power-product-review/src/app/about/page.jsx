@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import style from "./About.module.css";
 
 const About = () => {
@@ -6,15 +6,18 @@ const About = () => {
     <div className={style.aboutContainer}>
       <section className={style.headerSection}>
         <h1>About AI-Power Review Analyzer</h1>
-        <p className={style.subtitle}>Transforming the way you understand customer feedback</p>
+        <p className={style.subtitle}>
+          Transforming the way you understand customer feedback
+        </p>
       </section>
 
       <section className={style.mainContent}>
         <div className={style.infoCard}>
           <h2>Our Mission</h2>
           <p>
-            We strive to empower businesses with AI-driven insights from customer reviews,
-            helping them make data-driven decisions and improve customer satisfaction.
+            We strive to empower businesses with AI-driven insights from
+            customer reviews, helping them make data-driven decisions and
+            improve customer satisfaction.
           </p>
         </div>
 
@@ -22,8 +25,8 @@ const About = () => {
           <div className={style.featureCard}>
             <h3>Smart Analysis</h3>
             <p>
-              Utilizing advanced AI algorithms to analyze customer reviews and extract
-              meaningful patterns and insights.
+              Utilizing advanced AI algorithms to analyze customer reviews and
+              extract meaningful patterns and insights.
             </p>
           </div>
 
@@ -54,9 +57,7 @@ const About = () => {
 
         <div className={style.contactSection}>
           <h2>Get in Touch</h2>
-          <p>
-            Have questions about our service? We'd love to hear from you!
-          </p>
+          <p>Have questions about our service? We'd love to hear from you!</p>
           <button className={style.contactBtn}>Contact Us</button>
         </div>
       </section>

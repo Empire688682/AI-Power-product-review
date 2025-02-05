@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import style from "./DemoAnalyzer.module.css";
 import { LiaTimesSolid } from "react-icons/lia";
 
-const DemoAnalyzer = ({setShowDemo}) => {
-  const [demoText, setDemoText] = useState('');
+const DemoAnalyzer = ({ setShowDemo }) => {
+  const [demoText, setDemoText] = useState("");
   const [result, setResult] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
@@ -12,10 +12,10 @@ const DemoAnalyzer = ({setShowDemo}) => {
     setIsAnalyzing(true);
     setTimeout(() => {
       const demoResult = {
-        sentiment: 'Positive',
+        sentiment: "Positive",
         confidence: 0.89,
-        keywords: ['excellent', 'helpful', 'recommend'],
-        score: 4.5
+        keywords: ["excellent", "helpful", "recommend"],
+        score: 4.5,
       };
       setResult(demoResult);
       setIsAnalyzing(false);
@@ -28,20 +28,31 @@ const DemoAnalyzer = ({setShowDemo}) => {
       <p className={style.demoInstruction}>
         Paste a review or try our example to see the magic happen
       </p>
-      <LiaTimesSolid className={style.icon} onClick={()=>setShowDemo(false)}/>
+      <LiaTimesSolid
+        className={style.icon}
+        onClick={() => setShowDemo(false)}
+      />
 
       <div className={style.demoContainer}>
         <div className={style.inputSection}>
           <div className={style.exampleButtons}>
-            <button 
+            <button
               className={style.exampleBtn}
-              onClick={() => setDemoText("This product is excellent! The customer service was very helpful. I would definitely recommend it to others.")}
+              onClick={() =>
+                setDemoText(
+                  "This product is excellent! The customer service was very helpful. I would definitely recommend it to others.",
+                )
+              }
             >
               Load Positive Example
             </button>
-            <button 
+            <button
               className={style.exampleBtn}
-              onClick={() => setDemoText("The product was okay, but could use some improvements. Delivery was on time though.")}
+              onClick={() =>
+                setDemoText(
+                  "The product was okay, but could use some improvements. Delivery was on time though.",
+                )
+              }
             >
               Load Neutral Example
             </button>
@@ -53,19 +64,22 @@ const DemoAnalyzer = ({setShowDemo}) => {
             onChange={(e) => setDemoText(e.target.value)}
             placeholder="Enter a review here or click an example above..."
           />
-          <button 
+          <button
             className={style.analyzeBtn}
             onClick={runDemo}
             disabled={!demoText || isAnalyzing}
           >
-            {isAnalyzing ? 'Analyzing...' : 'Analyze Sentiment'}
+            {isAnalyzing ? "Analyzing..." : "Analyze Sentiment"}
           </button>
         </div>
 
         {result && (
           <div className={style.resultSection}>
             <div className={style.mainResult}>
-              <div className={style.sentimentBadge} data-sentiment={result.sentiment.toLowerCase()}>
+              <div
+                className={style.sentimentBadge}
+                data-sentiment={result.sentiment.toLowerCase()}
+              >
                 {result.sentiment}
               </div>
               <div className={style.confidenceScore}>
@@ -78,7 +92,7 @@ const DemoAnalyzer = ({setShowDemo}) => {
                 <h4>Review Score</h4>
                 <div className={style.score}>{result.score}/5.0</div>
               </div>
-              
+
               <div className={style.keywordsCard}>
                 <h4>Key Phrases</h4>
                 <div className={style.keywordTags}>

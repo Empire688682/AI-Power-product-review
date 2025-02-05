@@ -1,8 +1,8 @@
-"use client"
-import React, { useEffect, useState } from 'react';
+"use client";
+import React, { useEffect, useState } from "react";
 import style from "./Home.module.css";
-import DemoAnalyzer from '../DemoAnalyzer/DemoAnalyzer';
-import { useRouter } from 'next/navigation';
+import DemoAnalyzer from "../DemoAnalyzer/DemoAnalyzer";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,24 +26,24 @@ const Home = () => {
         </p>
         {!isLoggedIn && (
           <div className={style.heroButtons}>
-            <button 
-              className={style.primaryBtn}
-              onClick={handleGetStarted}
-            >
+            <button className={style.primaryBtn} onClick={handleGetStarted}>
               Get Started Free
             </button>
-            <button className={style.secondaryBtn} onClick={()=>setShowDemo(true)}>See Demo</button>
+            <button
+              className={style.secondaryBtn}
+              onClick={() => setShowDemo(true)}
+            >
+              See Demo
+            </button>
           </div>
         )}
       </section>
 
-      {
-        showDemo && (
-          <section>
-            <DemoAnalyzer setShowDemo={setShowDemo}/>
-          </section>
-        )
-      }
+      {showDemo && (
+        <section>
+          <DemoAnalyzer setShowDemo={setShowDemo} />
+        </section>
+      )}
 
       {/* Features Section */}
       <section className={style.features}>
@@ -69,13 +69,11 @@ const Home = () => {
         <section className={style.analysisSection}>
           <div className={style.analyzerContainer}>
             <h2>Analyze Reviews</h2>
-            <textarea 
+            <textarea
               className={style.inputArea}
               placeholder="Paste your review here..."
             />
-            <button className={style.analyzeBtn}>
-              Analyze Sentiment
-            </button>
+            <button className={style.analyzeBtn}>Analyze Sentiment</button>
           </div>
           <div className={style.resultsArea}>
             {/* Results will be displayed here */}
