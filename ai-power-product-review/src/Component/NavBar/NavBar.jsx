@@ -19,6 +19,14 @@ const NavBar = () => {
         }
     },[isOpen]);
 
+    useEffect(()=>{
+        if(showSignup){
+            document.body.style.overflow = "hidden"
+        }else{
+            document.body.style.overflow = "unset"
+        }
+    },[showSignup])
+
     return (
         <nav className={style.navbar}>
             <div className={style.logo}>

@@ -1,12 +1,20 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from "./Home.module.css";
 import DemoAnalyzer from '../DemoAnalyzer/DemoAnalyzer';
+import { useRouter } from 'next/navigation';
 
 const Home = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [seeDemo, setSeDemo] = useState(false);
+  const [showDemo, setShowDemo] = useState(false);
+  const [isPermitted, setIsPermitted] = useState(false);
+
+  const router = useRouter();
+
+  const handleGetStarted = () => {
+    setIsPermitted(true);
+    router.push("/analyzer");
+  };
 
   return (
     <div className={style.container}>
@@ -20,19 +28,19 @@ const Home = () => {
           <div className={style.heroButtons}>
             <button 
               className={style.primaryBtn}
-              onClick={() => setShowAuthModal(true)}
+              onClick={handleGetStarted}
             >
               Get Started Free
             </button>
-            <button className={style.secondaryBtn} onClick={()=>setSeDemo(true)}>See Demo</button>
+            <button className={style.secondaryBtn} onClick={()=>setShowDemo(true)}>See Demo</button>
           </div>
         )}
       </section>
 
       {
-        seeDemo && (
+        showDemo && (
           <section>
-            <DemoAnalyzer setSeDemo={setSeDemo}/>
+            <DemoAnalyzer setShowDemo={setShowDemo}/>
           </section>
         )
       }

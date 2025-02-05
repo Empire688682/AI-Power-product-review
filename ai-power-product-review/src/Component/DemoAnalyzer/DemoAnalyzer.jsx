@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from "./DemoAnalyzer.module.css";
 import { LiaTimesSolid } from "react-icons/lia";
 
-const DemoAnalyzer = ({setSeDemo}) => {
+const DemoAnalyzer = ({setShowDemo}) => {
   const [demoText, setDemoText] = useState('');
   const [result, setResult] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -28,7 +28,7 @@ const DemoAnalyzer = ({setSeDemo}) => {
       <p className={style.demoInstruction}>
         Paste a review or try our example to see the magic happen
       </p>
-      <LiaTimesSolid className={style.icon} onClick={()=>setSeDemo(false)}/>
+      <LiaTimesSolid className={style.icon} onClick={()=>setShowDemo(false)}/>
 
       <div className={style.demoContainer}>
         <div className={style.inputSection}>
