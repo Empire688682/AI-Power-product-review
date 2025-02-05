@@ -167,9 +167,10 @@
     color: #666;
   }
   
-  .login a {
+  .login span {
     color: #007bff;
     text-decoration: none;
+    cursor: pointer;
   }
   
   .login a:hover {

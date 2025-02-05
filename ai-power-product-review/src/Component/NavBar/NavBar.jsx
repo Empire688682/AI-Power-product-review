@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from "./NavBar.module.css";
 import SignupForm from '../SignupForm/SignupForm';
 
@@ -10,6 +10,14 @@ const NavBar = () => {
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    useEffect(()=>{
+        if(isOpen){
+            document.body.style.overflow = 'hidden';
+        }else{
+            document.body.style.overflow = 'unset';
+        }
+    },[isOpen]);
 
     return (
         <nav className={style.navbar}>

@@ -44,7 +44,7 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
                     ×
                 </button>
 
-                <h2 className={style.title}>Create Account</h2>
+                <h2 className={style.title}>{formPhase === "signup" ? "Sign Up" : "Sign In"}</h2>
 
                 <button
                     className={style.googleButton}
@@ -106,7 +106,7 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
                     {error && <div className={style.error}>{error}</div>}
 
                     <button type="submit" className={style.submitButton}>
-                        Sign Up
+                    {formPhase === "signup" ? "Sign Up" : "Log In"}
                     </button>
                 </form>
 
@@ -117,10 +117,16 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
                 </p>
 
                 <p className={style.login}>
-                    Already have an account?{' '}
-                    <a href="#" onClick={() => console.log('Switch to login')}>
-                        Log in
-                    </a>
+                    {
+                        formPhase === "signup" ? "Already have an account?" : "Don't have an account?"
+                    }
+                    {
+                        formPhase === "signup" ? (
+                            <span onClick={() => setFormPhase("login")}>Log In</span>
+                        ) : (
+                            <span onClick={() => setFormPhase("signup")}>Sign Up</span>
+                        )
+                    }
                 </p>
             </div>
         </div>
