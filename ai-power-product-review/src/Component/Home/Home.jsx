@@ -13,7 +13,7 @@ const Home = () => {
 
   const handleGetStarted = () => {
     setIsPermitted(true);
-    router.push("/analyzer");
+    router.push("/analysis");
   };
 
   return (

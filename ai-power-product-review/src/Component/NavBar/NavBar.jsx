@@ -1,11 +1,16 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import style from "./NavBar.module.css";
 import SignupForm from '../SignupForm/SignupForm';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [showSignup, setShowSignup] = useState(false);
+    const params = usePathname();
+    const trimPathname = params === "/" ? "home" : params.replace("/", "");
+    const [pathname, setPthname] = useState("home");
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -40,9 +45,9 @@ const NavBar = () => {
             </div>
 
             <ul className={`${style.navLinks} ${isOpen ? style.active : ''}`}>
-                <li><a href="/">Home</a></li>
-                <li><a href="/analysis">Analysis</a></li>
-                <li><a href="/about">About</a></li>
+                <Link style={{textDecoration:"noe"}} href="/" onClick={()=>setPthname("home")}>Home</Link>
+                <Link  style={{textDecoration:"noe"}} href="/analysis"  onClick={()=>setPthname("analysis")}>Analysis</>
+                <Link style={{textDecoration:"noe"}} href="/about"  onClick={()=>setPthname("about")}>About</Link>
                 <li><button className={style.signupBtn} onClick={() => setShowSignup(true)}>Sign Up</button></li>
             </ul>
             {
