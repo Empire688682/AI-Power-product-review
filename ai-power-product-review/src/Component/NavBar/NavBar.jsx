@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from 'react';
 import style from "./NavBar.module.css";
+import SignupForm from '../SignupForm/SignupForm';
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -25,8 +27,15 @@ const NavBar = () => {
         <li><a href="/">Home</a></li>
         <li><a href="/analysis">Analysis</a></li>
         <li><a href="/about">About</a></li>
-        <li><button className={style.signupBtn}>Sign Up</button></li>
+        <li><button className={style.signupBtn} onClick={()=>setShowSignup(true)}>Sign Up</button></li>
       </ul>
+      <div  className={style.signupContent}>
+        {
+            showSignup && (
+                <SignupForm setShowSignup={setShowSignup} showSignup={showSignup} />
+            )
+        }
+      </div>
     </nav>
   );
 };

@@ -19,7 +19,7 @@ const DemoAnalyzer = ({setSeDemo}) => {
       };
       setResult(demoResult);
       setIsAnalyzing(false);
-    }, 1500);
+    }, 2000);
   };
 
   return (
@@ -28,6 +28,7 @@ const DemoAnalyzer = ({setSeDemo}) => {
       <p className={style.demoInstruction}>
         Paste a review or try our example to see the magic happen
       </p>
+      <LiaTimesSolid className={style.icon} onClick={()=>setSeDemo(false)}/>
 
       <div className={style.demoContainer}>
         <div className={style.inputSection}>
