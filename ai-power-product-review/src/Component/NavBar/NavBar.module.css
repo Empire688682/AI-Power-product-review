@@ -22,11 +22,15 @@
     gap: 2rem;
   }
   
-  .navLinks li a {
+  .navLinks .menu {
     text-decoration: none;
     color: #333;
     font-weight: 500;
     transition: color 0.3s ease;
+  }
+  .active{
+    color: #007bff;
+    font-weight: 500;
   }
   
   .navLinks li a:hover {

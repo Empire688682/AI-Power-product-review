@@ -45,9 +45,9 @@ const NavBar = () => {
             </div>
 
             <ul className={`${style.navLinks} ${isOpen ? style.active : ''}`}>
-                <Link style={{textDecoration:"noe"}} href="/" onClick={()=>setPthname("home")}>Home</Link>
-                <Link  style={{textDecoration:"noe"}} href="/analysis"  onClick={()=>setPthname("analysis")}>Analysis</>
-                <Link style={{textDecoration:"noe"}} href="/about"  onClick={()=>setPthname("about")}>About</Link>
+                <Link style={{textDecoration:"none"}} className={pathname === "home"? `${style.active}`:`${style.menu}`} href="/" onClick={()=>setPthname("home")}>Home</Link>
+                <Link  style={{textDecoration:"none"}} className={pathname === "analysis"? `${style.active}`:`${style.menu}`} href="/analysis"  onClick={()=>setPthname("analysis")}>Analysis</Link>
+                <Link style={{textDecoration:"none"}} className={pathname === "about"? `${style.active}`:`${style.menu}`} href="/about"  onClick={()=>setPthname("about")}>About</Link>
                 <li><button className={style.signupBtn} onClick={() => setShowSignup(true)}>Sign Up</button></li>
             </ul>
             {
