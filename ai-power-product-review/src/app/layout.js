@@ -1,9 +1,10 @@
+import NavBar from "@/Component/NavBar/NavBar";
 import "./globals.css";
 import { AppProvider } from "@/Component/Context";
 
 export const metadata = {
   title: "AI-Power Review",
-  description: "Customers revivew analyzer",
+  description: "Customers revivew analyzer with OpenAI",
 };
 
 export default function RootLayout({ children }) {
@@ -11,6 +12,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AppProvider>
+          <NavBar/>
         {children}
         </AppProvider>
       </body>

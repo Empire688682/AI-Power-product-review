@@ -3,3 +3,11 @@
     margin: 0;
     box-sizing: border-box;
 }
+body {
+    background: var(--bg-gradient);
+    min-height: 100vh;
+  }
+  :root {
+    --bg-primary: #f8fafc;  /* Very light blue-gray */
+    --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  }
