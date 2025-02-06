@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import style from "./Analyzer.module.css";
+import axios from "axios";
 
 const Analyzer = () => {
   const [reviewText, setReviewText] = useState({
@@ -10,13 +11,23 @@ const Analyzer = () => {
   const [analysisResult, setAnalysisResult] = useState(null);
   const router = useRouter();
 
-  const handleAnalyze = () => {
+  const handleAnalyze = async () => {
     if (reviewText.data.trim() === "") {
       alert("Please enter a review to analyze.");
       return;
     }
 
-    // Simulated AI response (replace with actual API call)
+    try {
+      const response = await axios.post("api/allData/analyzer", reviewText, {
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response) {
+        console.log("FResponse:", response);
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+
     setAnalysisResult({
       sentiment: "Positive",
       confidence: "87%",
