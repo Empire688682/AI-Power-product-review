@@ -1,23 +1,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import styles from "./UserAnalysis.module.css";
+import style from "./UserAnalysis.module.css";
+import { FaHeart } from "react-icons/fa";
 
 const UserAnalysis = () => {
   const [selectedChart, setSelectedChart] = useState("bar");
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
   console.log(user);
 
   useEffect(()=>{
     if(typeof window !== "undefined"){
-      setUser(JSON.parse(localStorage.getItem("userData")) || [])
+      setUser(JSON.parse(localStorage.getItem("userData"))) || {};
     }
-  },[])
+  },[]);
 
   return (
-    <div className={styles.container}>
-      <h1>User Analysis History</h1>
+    <div className={style.container}>
+      <h1><FaHeart className={style.icon} />{user.username} Analysis</h1>
       
-      <div className={styles.chartSelector}>
+      <div className={style.chartSelector}>
         <label htmlFor="chartType">Select Chart Type:</label>
         <select
           id="chartType"
@@ -30,7 +31,7 @@ const UserAnalysis = () => {
         </select>
       </div>
       
-      <div className={styles.chartContainer}>
+      <div className={style.chartContainer}>
         <p>Chart will be displayed here based on user selection ({selectedChart})</p>
       </div>
     </div>
