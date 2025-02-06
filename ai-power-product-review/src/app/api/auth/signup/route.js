@@ -12,8 +12,8 @@ const createUser = async (req) => {
         const reqBody = await req.json();
         try {
             await ConnectDb()
-            const { name, email, password, confirmPasswor } = reqBody;
-            if (!name || !email || !password) {
+            const { username, email, password, confirmPasswor } = reqBody;
+            if (!email || !password) {
                 return NextResponse.json({ success: false, message: "All field required" }, { status: 400 });
             };
 
@@ -37,7 +37,7 @@ const createUser = async (req) => {
             const hashedPwd = await bcrypt.hash(password, 10);
 
             const newUser = new UserModel({
-                name,
+                username,
                 email,
                 password: hashedPwd,
                 data: {}
@@ -62,5 +62,9 @@ const createUser = async (req) => {
             console.error("CreateUserError:", error);
             return NextResponse.json({ success: true, message: error }, { status: 500 });
         }
-    }
+    };
+}
+
+export async function POST(req){
+    return createUser(req);
 }

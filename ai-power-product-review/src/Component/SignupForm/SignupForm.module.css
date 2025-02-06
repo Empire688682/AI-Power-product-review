@@ -144,6 +144,11 @@
   background-color: #0056b3;
 }
 
+.formWrapper button:disabled {
+  cursor: not-allowed;
+  background-color: #666;
+}
+
 .terms {
   margin-top: 1rem;
   font-size: 0.8rem;
