@@ -83,7 +83,7 @@ const NavBar = () => {
         </li>
       </ul>
       {showSignup && (
-        <SignupForm setShowSignup={setShowSignup} showSignup={showSignup} />
+        <SignupForm setIsOpen={setIsOpen} setShowSignup={setShowSignup} showSignup={showSignup} />
       )}
     </nav>
   );

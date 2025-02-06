@@ -4,7 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import axios from "axios";
 
-const SignupForm = ({ setShowSignup, showSignup }) => {
+const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -31,8 +31,9 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
       const response = await axios.post(`${baseUrl}`, formData);
       if (response.data.success) {
         setShowSignup(false);
+        setIsOpen(false);
         const userData = response.data.data;
-        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("userData", JSON.stringify(userData));
       }
     } catch (error) {
       console.error(error);

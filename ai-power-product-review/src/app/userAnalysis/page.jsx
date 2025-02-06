@@ -1,9 +1,17 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./UserAnalysis.module.css";
 
 const UserAnalysis = () => {
   const [selectedChart, setSelectedChart] = useState("bar");
+  const [user, setUser] = useState([]);
+  console.log(user);
+
+  useEffect(()=>{
+    if(typeof window !== "undefined"){
+      setUser(JSON.parse(localStorage.getItem("userData")) || [])
+    }
+  },[])
 
   return (
     <div className={styles.container}>
