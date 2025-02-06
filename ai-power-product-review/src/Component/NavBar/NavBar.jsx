@@ -3,11 +3,13 @@ import React, { use, useEffect, useState } from "react";
 import style from "./NavBar.module.css";
 import SignupForm from "../SignupForm/SignupForm";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
-  const [pathname, setPthname] = useState("home");
+  const rawPathname = usePathname();
+  const pathname = rawPathname === "/" ? "home" : rawPathname.replace("/", "")
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -43,11 +45,11 @@ const NavBar = () => {
 
       <ul className={`${style.navLinks} ${isOpen ? style.active : ""}`}>
         <Link
-        
+
           style={{ textDecoration: "none" }}
           className={pathname === "home" ? `${style.active}` : `${style.menu}`}
           href="/"
-          onClick={() => {setPthname("home"); toggleMenu();}}
+          onClick={() => toggleMenu()}
         >
           Home
         </Link>
@@ -57,7 +59,7 @@ const NavBar = () => {
             pathname === "analysis" ? `${style.active}` : `${style.menu}`
           }
           href="/analysis"
-          onClick={() => {setPthname("analysis"); toggleMenu();}}
+          onClick={() => toggleMenu()}
         >
           Analysis
         </Link>
@@ -65,14 +67,14 @@ const NavBar = () => {
           style={{ textDecoration: "none" }}
           className={pathname === "about" ? `${style.active}` : `${style.menu}`}
           href="/about"
-          onClick={() => {setPthname("about");toggleMenu();}}
+          onClick={() => toggleMenu()}
         >
           About
         </Link>
         <li>
           <button
             className={style.signupBtn}
-            onClick={() => {setShowSignup(true);toggleMenu();}}
+            onClick={() => { setShowSignup(true); toggleMenu(); }}
           >
             Sign Up
           </button>

@@ -50,10 +50,13 @@ const Analyzer = () => {
       }
     } catch (error) {
       console.log("Error:", error);
-      if(error.response.data.message === "Text is too long to analyze"){
-        setError(error.response.data.message)
-      };
-      setError("An error occurred while analyzing the review. Please try again.");
+      setError(()=>{
+        if(error.response.data.message === "Text is too long to analyze"){
+          return error.response.data.message
+        }else{
+          return "An error occured, try again later"
+        };
+      });
       setTimeout(() => {
         setError(null);
       }, 2000);
