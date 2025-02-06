@@ -19,30 +19,28 @@ const Analyzer = () => {
     }
 
     try {
-      setLoading(true)
+      setLoading(true);
       const response = await axios.post("api/allData/analyzer", reviewText, {
         headers: { "Content-Type": "application/json" },
       });
       if (response.data.success) {
-        console.log("FResponse:", response);
         let sentimentResult = "Neutral";
-        if(response.data.data.score < 0){
-          sentimentResult = "Negative"
-        }else if(response.data.data.score > 0){
-          sentimentResult = "Positive"
+        if (response.data.data.score < 0) {
+          sentimentResult = "Negative";
+        } else if (response.data.data.score > 0) {
+          sentimentResult = "Positive";
         }
         setAnalysisResult({
           sentiment: sentimentResult,
-          confidence: response.data.data.score *10 + "%",
-          keywords:response.data.data.words,
+          confidence: response.data.data.score * 10 + "%",
+          keywords: response.data.data.words,
         });
-        console.log("keywords:", response.data.data.words)
+        setReviewText({ text: "" });
       }
     } catch (error) {
       console.log("Error:", error);
-    }
-    finally {
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,9 +73,7 @@ const Analyzer = () => {
           className={style.analyzeBtn}
           onClick={handleAnalyze}
         >
-          {
-            loading ? "Analyzing ......" : "Analyze Sentiment"
-          }
+          {loading ? "Analyzing ......" : "Analyze Sentiment"}
         </button>
       </div>
 
