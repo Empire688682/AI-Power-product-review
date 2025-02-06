@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 import { NextResponse } from "next/server";
-import OpenAI from "openai";
+import Sentiment from "sentiment";
 dotenv.config();
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const sentiment = new Sentiment();
 const analyzeText = async (req) => {
     if (req.method === "POST") {
         try {
@@ -15,16 +15,11 @@ const analyzeText = async (req) => {
                     { status: 400 },
                 );
             };
-            const response = await openai.chat.completions.create({
-                model: "o1-preview-2024-09-12",
-                store: true,
-                messages: [{ role: "user", content: `Analyze the sentiment of this text: "${text}". Respond with Positive, Negative, or Neutral.` }]
-            });
-            console.log("response:", response);
+            const result = sentiment.analyze(text);
             return NextResponse.json(
                 {
                     success: true,
-                    data: response.data,
+                    data: result,
                     message: "Text analyzed successful",
                 },
                 { status: 200 },
