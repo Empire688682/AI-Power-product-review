@@ -21,7 +21,7 @@ const Analyzer = () => {
     const baseURL = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
     try {
       setLoading(true);
-      const response = await axios.post(`${baseURL}/api/allData/analyzer`, reviewText, {
+      const response = await axios.post(`api/allData/analyzer`, reviewText, {
         headers: { "Content-Type": "application/json" },
       });
       if (response.data.success) {
