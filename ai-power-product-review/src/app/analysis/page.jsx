@@ -44,6 +44,9 @@ const Analyzer = () => {
     } catch (error) {
       console.log("Error:", error);
       setError("An error occurred while analyzing the review. Please try again.");
+      setTimeout(() => {
+        setError(null);
+      }, 2000);
     } finally {
       setLoading(false);
     }
