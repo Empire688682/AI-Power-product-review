@@ -12,7 +12,7 @@ const createUser = async (req) => {
         const reqBody = await req.json();
         try {
             await ConnectDb()
-            const { username, email, password, confirmPasswor } = reqBody;
+            const { username, email, password, confirmPassword } = reqBody;
             if (!email || !password) {
                 return NextResponse.json({ success: false, message: "All field required" }, { status: 400 });
             };
@@ -30,8 +30,8 @@ const createUser = async (req) => {
                 return NextResponse.json({ success: false, message: "Password too short" }, { status: 400 });
             };
 
-            if (password !== confirmPasswor) {
-                return NextResponse.json({ success: false, message: "Password too short" }, { status: 400 });
+            if (password !== confirmPassword) {
+                return NextResponse.json({ success: false, message: "Password do not match" }, { status: 400 });
             };
 
             const hashedPwd = await bcrypt.hash(password, 10);
