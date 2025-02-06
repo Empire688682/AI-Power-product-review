@@ -12,13 +12,14 @@ const Analyzer = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [button, setButton] = useState("post");
 
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
       alert("Please enter a review to analyze.");
       return;
     };
-    const baseURL = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
+
     try {
       setLoading(true);
       const response = await axios.post(`api/allData/analyzer`, reviewText, {
@@ -40,13 +41,18 @@ const Analyzer = () => {
           confidence: maxConfidence + "%",
           keywords: response.data.data.words,
         });
-        setReviewText({ text: "" });
-        setTimeout(() => {
+        setReviewText({ text: "" }); 
+        setButton("reset");
+        const clickedElement = document.getElementById("textArea").focus();
+        if (clickedElement) {
           setAnalysisResult(null);
-        }, 10000); 
+        }
       }
     } catch (error) {
       console.log("Error:", error);
+      if(error.response.data.message === "Text is too long to analyze"){
+        setError(error.response.data.message)
+      };
       setError("An error occurred while analyzing the review. Please try again.");
       setTimeout(() => {
         setError(null);
@@ -59,6 +65,13 @@ const Analyzer = () => {
   const handleInputOnchange = (e) => {
     const { value, name } = e.target;
     setReviewText((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleTextAreaClick = () => {
+    if (analysisResult) {
+      setAnalysisResult(null);
+      setButton("post");
+    }
   };
 
   return (
@@ -79,14 +92,31 @@ const Analyzer = () => {
           value={reviewText.text}
           name="text"
           onChange={handleInputOnchange}
+          onClick={handleTextAreaClick}
+          id="textArea"
         />
-        <button
-          disabled={!reviewText.text}
-          className={style.analyzeBtn}
-          onClick={handleAnalyze}
-        >
-          {loading ? "Analyzing ......" : "Analyze Sentiment"}
-        </button>
+        {
+          button === "post" ? (
+            <button
+              className={style.primaryBtn}
+              onClick={handleAnalyze}
+              disabled={loading || reviewText.text.trim() === "" }
+            >
+              {loading ? "Analyzing..." : "Analyze Review"}
+            </button>
+          ) : (
+            <button
+              className={style.secondaryBtn}
+              onClick={() => {
+                setReviewText({ text: "" });
+                setAnalysisResult(null);
+                setButton("post");
+              }}
+            >
+              Reset
+            </button>
+          )
+        }
         {error && <p className="error">{error}</p>}
       </div>
 

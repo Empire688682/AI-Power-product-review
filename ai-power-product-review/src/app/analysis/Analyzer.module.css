@@ -48,7 +48,8 @@
   resize: none;
 }
 
-.analyzeBtn {
+.primaryBtn,
+.secondaryBtn {
   padding: 0.8rem 2rem;
   background-color: #007bff;
   color: white;
@@ -59,16 +60,17 @@
   transition: background-color 0.3s ease;
 }
 
-.analyzeBtn:disabled {
+.primaryBtn:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
-.analyzeBtn:disabled:hover {
+.primaryBtn:disabled:hover {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-.analyzeBtn:hover {
+.primaryBtn:hover,
+.secondaryBtn:hover {
   background-color: #0056b3;
 }
 
