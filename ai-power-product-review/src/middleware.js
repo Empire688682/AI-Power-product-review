@@ -1,7 +1,16 @@
 import { NextResponse } from "next/server";
 
-export function middleware(req) {}
+export function middleware(req) {
+  const path = req.nextUrl.pathname;
+  const token = req.cookies.get("AIToken").value || "";
+
+}
 
 export const config = {
-  matcher: ["/", "/about", "/admin", "/analyzer"],
+  matcher: [
+    "/", 
+    "/about", 
+    "/user", 
+    "/analysis"
+  ],
 };
