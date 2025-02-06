@@ -9,9 +9,22 @@ const analyzeText = async (req) => {
     try {
       const reqBody = await req.json();
       const { text } = reqBody;
+
+      if (!text.trim()) {
+        return NextResponse.json(
+          { success: false, message: "Text cannot be empty" },
+          { status: 400 },
+        );
+      }
       if (!text) {
         return NextResponse.json(
           { success: false, message: "No text data from Frontend" },
+          { status: 400 },
+        );
+      }
+      if (text.length > 1000) {
+        return NextResponse.json(
+          { success: false, message: "Text is too long to analyze" },
           { status: 400 },
         );
       }

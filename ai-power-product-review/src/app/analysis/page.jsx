@@ -7,20 +7,21 @@ import axios from "axios";
 const Analyzer = () => {
   const [reviewText, setReviewText] = useState({
     text: "",
-  });
+});
   const [analysisResult, setAnalysisResult] = useState(null);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
       alert("Please enter a review to analyze.");
       return;
-    }
-
+    };
+    const baseURL = process.env.NEXT_PUBLIC_URL || "http://localhost:3000";
     try {
       setLoading(true);
-      const response = await axios.post("api/allData/analyzer", reviewText, {
+      const response = await axios.post(`${baseURL}/api/allData/analyzer`, reviewText, {
         headers: { "Content-Type": "application/json" },
       });
       if (response.data.success) {
@@ -36,9 +37,13 @@ const Analyzer = () => {
           keywords: response.data.data.words,
         });
         setReviewText({ text: "" });
+        setTimeout(() => {
+          setAnalysisResult(null);
+        }, 10000); 
       }
     } catch (error) {
       console.log("Error:", error);
+      setError("An error occurred while analyzing the review. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -75,6 +80,7 @@ const Analyzer = () => {
         >
           {loading ? "Analyzing ......" : "Analyze Sentiment"}
         </button>
+        {error && <p className="error">{error}</p>}
       </div>
 
       {/* Results Section */}
