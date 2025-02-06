@@ -9,7 +9,7 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const rawPathname = usePathname();
-  const pathname = rawPathname === "/" ? "home" : rawPathname.replace("/", "")
+  const pathname = rawPathname === "/" ? "home" : rawPathname.replace("/", "");
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -45,7 +45,6 @@ const NavBar = () => {
 
       <ul className={`${style.navLinks} ${isOpen ? style.active : ""}`}>
         <Link
-
           style={{ textDecoration: "none" }}
           className={pathname === "home" ? `${style.active}` : `${style.menu}`}
           href="/"
@@ -74,7 +73,10 @@ const NavBar = () => {
         <li>
           <button
             className={style.signupBtn}
-            onClick={() => { setShowSignup(true); toggleMenu(); }}
+            onClick={() => {
+              setShowSignup(true);
+              toggleMenu();
+            }}
           >
             Sign Up
           </button>

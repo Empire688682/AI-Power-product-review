@@ -24,7 +24,8 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
   };
 
   const addUser = async () => {
-    const baseUrl = formPhase === "signup" ? "api/auth/signup" : "api/auth/login";
+    const baseUrl =
+      formPhase === "signup" ? "api/auth/signup" : "api/auth/login";
     try {
       setLoading(true);
       const response = await axios.post(`${baseUrl}`, formData);
@@ -35,7 +36,7 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
       }
     } catch (error) {
       console.error(error);
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
@@ -57,11 +58,11 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
           className={style.closeButton}
           onClick={() => setShowSignup(!showSignup)}
         >
-          <LiaTimesSolid  />
+          <LiaTimesSolid />
         </span>
 
         <h2 className={style.title}>
-          {formPhase === "signup" ? "Sign Up" :"Sign In"}
+          {formPhase === "signup" ? "Sign Up" : "Sign In"}
         </h2>
 
         <button className={style.googleButton} onClick={handleGoogleSignup}>
@@ -129,8 +130,14 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
 
           {error && <div className={style.error}>{error}</div>}
 
-          <button disabled={loading} type="submit" className={style.submitButton}>
-          {formPhase === "signup" ? `${loading ? "Signing up..." : "Sign Up"}` : `${loading ? "Signing in..." : "Sign In"}`}
+          <button
+            disabled={loading}
+            type="submit"
+            className={style.submitButton}
+          >
+            {formPhase === "signup"
+              ? `${loading ? "Signing up..." : "Sign Up"}`
+              : `${loading ? "Signing in..." : "Sign In"}`}
           </button>
         </form>
 

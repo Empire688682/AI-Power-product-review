@@ -7,7 +7,7 @@ import axios from "axios";
 const Analyzer = () => {
   const [reviewText, setReviewText] = useState({
     text: "",
-});
+  });
   const [analysisResult, setAnalysisResult] = useState(null);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const Analyzer = () => {
     if (reviewText.text.trim() === "") {
       alert("Please enter a review to analyze.");
       return;
-    };
+    }
 
     try {
       setLoading(true);
@@ -33,7 +33,7 @@ const Analyzer = () => {
           sentimentResult = "Positive";
         }
         let maxConfidence = response.data.data.score * 10;
-        if(maxConfidence > 100){
+        if (maxConfidence > 100) {
           maxConfidence = 95;
         }
         setAnalysisResult({
@@ -41,7 +41,7 @@ const Analyzer = () => {
           confidence: maxConfidence + "%",
           keywords: response.data.data.words,
         });
-        setReviewText({ text: "" }); 
+        setReviewText({ text: "" });
         setButton("reset");
         const clickedElement = document.getElementById("textArea").focus();
         if (clickedElement) {
@@ -50,12 +50,12 @@ const Analyzer = () => {
       }
     } catch (error) {
       console.log("Error:", error);
-      setError(()=>{
-        if(error.response.data.message === "Text is too long to analyze"){
-          return error.response.data.message
-        }else{
-          return "An error occured, try again later"
-        };
+      setError(() => {
+        if (error.response.data.message === "Text is too long to analyze") {
+          return error.response.data.message;
+        } else {
+          return "An error occured, try again later";
+        }
       });
       setTimeout(() => {
         setError(null);
@@ -98,28 +98,26 @@ const Analyzer = () => {
           onClick={handleTextAreaClick}
           id="textArea"
         />
-        {
-          button === "post" ? (
-            <button
-              className={style.primaryBtn}
-              onClick={handleAnalyze}
-              disabled={loading || reviewText.text.trim() === "" }
-            >
-              {loading ? "Analyzing..." : "Analyze Review"}
-            </button>
-          ) : (
-            <button
-              className={style.secondaryBtn}
-              onClick={() => {
-                setReviewText({ text: "" });
-                setAnalysisResult(null);
-                setButton("post");
-              }}
-            >
-              Reset
-            </button>
-          )
-        }
+        {button === "post" ? (
+          <button
+            className={style.primaryBtn}
+            onClick={handleAnalyze}
+            disabled={loading || reviewText.text.trim() === ""}
+          >
+            {loading ? "Analyzing..." : "Analyze Review"}
+          </button>
+        ) : (
+          <button
+            className={style.secondaryBtn}
+            onClick={() => {
+              setReviewText({ text: "" });
+              setAnalysisResult(null);
+              setButton("post");
+            }}
+          >
+            Reset
+          </button>
+        )}
         {error && <p className="error">{error}</p>}
       </div>
 
