@@ -6,18 +6,20 @@ import axios from "axios";
 
 const Analyzer = () => {
   const [reviewText, setReviewText] = useState({
-    data: "",
+    text: "",
   });
   const [analysisResult, setAnalysisResult] = useState(null);
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const handleAnalyze = async () => {
-    if (reviewText.data.trim() === "") {
+    if (reviewText.text.trim() === "") {
       alert("Please enter a review to analyze.");
       return;
     }
 
     try {
+      setLoading(true)
       const response = await axios.post("api/allData/analyzer", reviewText, {
         headers: { "Content-Type": "application/json" },
       });
@@ -26,6 +28,9 @@ const Analyzer = () => {
       }
     } catch (error) {
       console.log("Error:", error);
+    }
+    finally {
+      setLoading(false)
     }
 
     setAnalysisResult({
@@ -55,16 +60,18 @@ const Analyzer = () => {
         <textarea
           className={style.inputArea}
           placeholder="Paste a review here..."
-          value={reviewText.data}
-          name="data"
+          value={reviewText.text}
+          name="text"
           onChange={handleInputOnchange}
         />
         <button
-          disabled={!reviewText.data}
+          disabled={!reviewText.text}
           className={style.analyzeBtn}
           onClick={handleAnalyze}
         >
-          Analyze Sentiment
+          {
+            loading ? "Analyzing ......" : "Analyze Sentiment"
+          }
         </button>
       </div>
 
