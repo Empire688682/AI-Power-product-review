@@ -11,7 +11,7 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
   const [error, setError] = useState("");
   const [formPhase, setFormPhase] = useState("signup");
 
-  const handleChange = (e) => {
+  const handleOnchange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
@@ -27,9 +27,6 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
       setError("Passwords do not match");
       return;
     }
-
-    // Add your signup logic here
-    console.log("Signup data:", formData);
   };
 
   const handleGoogleSignup = () => {
@@ -68,7 +65,7 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
               id="email"
               name="email"
               value={formData.email}
-              onChange={handleChange}
+              onChange={handleOnchange}
               required
               placeholder="Enter your email"
             />
@@ -82,7 +79,7 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
                 id="password"
                 name="password"
                 value={formData.password}
-                onChange={handleChange}
+                onChange={handleOnchange}
                 required
                 placeholder="Create a password"
                 minLength="8"
@@ -97,7 +94,7 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
               id="confirmPassword"
               name="confirmPassword"
               value={formData.confirmPassword}
-              onChange={handleChange}
+              onChange={handleOnchange}
               required
               placeholder="Confirm your password"
             />

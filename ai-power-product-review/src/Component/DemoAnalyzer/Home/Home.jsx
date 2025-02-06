@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import style from "./Home.module.css";
-import DemoAnalyzer from "../DemoAnalyzer/DemoAnalyzer";
+import DemoAnalyzer from "../DemoAnalyzer";
 import { useRouter } from "next/navigation";
 
 const Home = () => {
