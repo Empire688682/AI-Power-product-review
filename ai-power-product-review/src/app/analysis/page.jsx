@@ -31,9 +31,13 @@ const Analyzer = () => {
         } else if (response.data.data.score > 0) {
           sentimentResult = "Positive";
         }
+        let maxConfidence = response.data.data.score * 10;
+        if(maxConfidence > 100){
+          maxConfidence = 95;
+        }
         setAnalysisResult({
           sentiment: sentimentResult,
-          confidence: response.data.data.score * 10 + "%",
+          confidence: maxConfidence + "%",
           keywords: response.data.data.words,
         });
         setReviewText({ text: "" });
