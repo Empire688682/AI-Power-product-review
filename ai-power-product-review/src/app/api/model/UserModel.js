@@ -1,13 +1,11 @@
-import mongoose, { Schema } from "mongoose";
-import { ConnectDb } from "../utils/ConnectDb";
-import { unique } from "next/dist/build/utils";
+import mongoose from "mongoose";
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
     name:{type:String, required:true},
-    email:{type:String, required:true, unique},
+    email:{type:String, required:true, unique:true},
     password:{type:String, required:true},
     data:{type:Object, default:""},
 });
 
-export const UserModel = mongoose.model.User || mongoose.models("User", userSchema);
+export const UserModel = mongoose.models.User || mongoose.model("User", userSchema);
 

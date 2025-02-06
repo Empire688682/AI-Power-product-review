@@ -42,7 +42,7 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setError("");
+    addUser();
   };
 
   const handleGoogleSignup = () => {

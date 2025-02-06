@@ -21,7 +21,7 @@ const loginUser = async (req) => {
                 return NextResponse.json({ success: false, message: "Email not valid" }, { status: 400 });
             };
 
-            const user = await UserModel.findOne(email);
+            const user = await UserModel.findOne({email});
             if (!user) {
                 return NextResponse.json({ success: false, message: "User not found" }, { status: 400 });
             };

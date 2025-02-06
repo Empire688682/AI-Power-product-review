@@ -17,7 +17,7 @@ const createUser = async (req) => {
                 return NextResponse.json({ success: false, message: "All field required" }, { status: 400 });
             };
 
-            const userExist = await UserModel.findOne(email);
+            const userExist = await UserModel.findOne({email});
             if (userExist) {
                 return NextResponse.json({ success: false, message: "Email has been taken" }, { status: 400 });
             };
@@ -26,7 +26,7 @@ const createUser = async (req) => {
                 return NextResponse.json({ success: false, message: "Email not valid" }, { status: 400 });
             };
 
-            if (password.length <= 8) {
+            if (password.length < 8) {
                 return NextResponse.json({ success: false, message: "Password too short" }, { status: 400 });
             };
 
