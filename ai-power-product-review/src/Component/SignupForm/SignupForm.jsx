@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import style from "./SignupForm.module.css";
 import { FaGoogle } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
+import axios from "axios";
 
 const SignupForm = ({ setShowSignup, showSignup }) => {
   const [formData, setFormData] = useState({
@@ -22,14 +23,26 @@ const SignupForm = ({ setShowSignup, showSignup }) => {
     }));
   };
 
+  const addUser = async () => {
+    const baseUrl = formPhase === "signup" ? "api/auth/signup" : "api/auth/login";
+    try {
+      setLoading(true);
+      const response = await axios.post(`${baseUrl}`, formData);
+      if (response.data.success) {
+        setShowSignup(false);
+        const userData = response.data.data;
+        localStorage.setItem("user", JSON.stringify(userData));
+      }
+    } catch (error) {
+      console.error(error);
+    }finally{
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setError("");
-
-    if (formData.password !== formData.confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
   };
 
   const handleGoogleSignup = () => {
