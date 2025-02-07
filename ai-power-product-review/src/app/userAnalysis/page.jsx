@@ -5,11 +5,13 @@ import { FaHeart } from "react-icons/fa";
 import { useGlobalContext } from "@/Component/Context";
 import Image from "next/image";
 import { IoIosArrowDown } from "react-icons/io";
+import axios from "axios";
 
 const UserAnalysis = () => {
   const { user } = useGlobalContext();
   const [selectedChart, setSelectedChart] = useState("bar");
   const [image, setImage] = useState("");
+  console.log("image:", image);
 
   useEffect(() => {
     if (user.image) {
@@ -17,13 +19,34 @@ const UserAnalysis = () => {
     }
   }, [user]);
 
-  console.log(image)
+  const edditImage = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("userId", user._id);
+      const response = await axios.post("/api/profileImaga", formData);
+      if (response.data.success) {
+        window.location.reload();
+        if (typeof window !== "undefined") {
+          localStorage.setItem("userData", JSON.stringify(response.data.data));
+        }
+      }
+    } catch (error) {
+      console.log("ERROR:", error);
+    }
+  };
+
+  useEffect(()=>{
+    if(image){
+      edditImage();
+    }
+  },[image])
 
   return (
     <div className={style.container}>
       <div className={style.containerHeader}>
         <label className={style.imgCon} htmlFor="image">
-          <Image className={style.userImg} src={image ? URL.createObjectURL(image) : "/avatar_icon.png"} alt="IMG" width={50} height={50} />
+          <Image className={style.userImg} src={image ? `/images/${image}` : "/avatar_icon.png"} alt="IMG" width={50} height={50} />
           <IoIosArrowDown className={style.userEditIcon} />
         </label>
         <input type="file" accept="image/*" onChange={(e)=>setImage(e.target.files[0])} name="" id="image" hidden />

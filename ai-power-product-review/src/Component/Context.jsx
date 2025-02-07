@@ -10,7 +10,8 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setUser(JSON.parse(localStorage.getItem("userData"))) || {};
+      const storedData = localStorage.getItem("userData");
+      setUser(storedData !== "undefined" ? JSON.parse(storedData): {});
     }
   }, []);
 

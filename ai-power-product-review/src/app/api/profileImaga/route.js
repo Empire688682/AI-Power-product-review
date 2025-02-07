@@ -12,9 +12,12 @@ const profileImage = async (req) => {
         const formData = await req.formData();
         const image = formData.get("image");
         const userId = formData.get("userId");
+        if(userId === "undefined"){
+          return NextResponse.json({success:false, message:"UserId not authorized"}, {status:400})
+      };
         const user = await UserModel.findById(userId);
         if(!user){
-            return NextResponse.json({success:false, message:"User not authorized"})
+            return NextResponse.json({success:false, message:"User not authorized"}, {status:400})
         };
 
         const validImageTypes = ["image/jpeg", "image/png", "image/webp"];
@@ -45,7 +48,7 @@ const profileImage = async (req) => {
 
         await UserModel.findOneAndUpdate({_id:userId}, {image:imageName}, {new:true});
         
-        return NextResponse.json({ success: true, message: "Profile image updated successfully" , imageUrl: `/images/${imageName}`});
+        return NextResponse.json({ success: true, message: "Profile image updated successfully", data:user , imageUrl: `/images/${imageName}`}, {status:200});
 
     } catch (error) {
         console.log("ERROR:",error);
