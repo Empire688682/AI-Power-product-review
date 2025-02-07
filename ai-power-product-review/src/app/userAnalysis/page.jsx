@@ -2,17 +2,11 @@
 import React, { useEffect, useState } from "react";
 import style from "./UserAnalysis.module.css";
 import { FaHeart } from "react-icons/fa";
+import { useGlobalContext } from "@/Component/Context";
 
 const UserAnalysis = () => {
+  const {user} = useGlobalContext();
   const [selectedChart, setSelectedChart] = useState("bar");
-  const [user, setUser] = useState({});
-  console.log(user);
-
-  useEffect(()=>{
-    if(typeof window !== "undefined"){
-      setUser(JSON.parse(localStorage.getItem("userData"))) || {};
-    }
-  },[]);
 
   return (
     <div className={style.container}>
