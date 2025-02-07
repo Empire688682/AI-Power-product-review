@@ -50,7 +50,7 @@ const NavBar = () => {
           style={{ textDecoration: "none" }}
           className={pathname === "home" ? `${style.active}` : `${style.menu}`}
           href="/"
-          onClick={() => toggleMenu()}
+          onClick={() => setIsOpen(false)}
         >
           Home
         </Link>
@@ -60,7 +60,7 @@ const NavBar = () => {
             pathname === "analysis" ? `${style.active}` : `${style.menu}`
           }
           href="/analysis"
-          onClick={() => toggleMenu()}
+          onClick={() => setIsOpen(false)}
         >
           Analysis
         </Link>
@@ -68,7 +68,7 @@ const NavBar = () => {
           style={{ textDecoration: "none" }}
           className={pathname === "about" ? `${style.active}` : `${style.menu}`}
           href="/about"
-          onClick={() => toggleMenu()}
+          onClick={() => setIsOpen(false)}
         >
           About
         </Link>
@@ -78,7 +78,7 @@ const NavBar = () => {
             style={{ textDecoration: "none" }}
             className={pathname === "userAnalysis" ? `${style.active}` : `${style.menu}`}
             href="/userAnalysis"
-            onClick={() => toggleMenu()}
+            onClick={() => setIsOpen(false)}
           >
             My Data
           </Link>
@@ -90,7 +90,7 @@ const NavBar = () => {
               className={style.signupBtn}
               onClick={() => {
                 logoutUser();
-                toggleMenu();
+                setIsOpen(false);
               }}
             >
               Logout
@@ -100,7 +100,7 @@ const NavBar = () => {
               className={style.signupBtn}
               onClick={() => {
                 setShowSignup(true);
-                toggleMenu();
+                setIsOpen(false);
               }}
             >
               Sign Up
