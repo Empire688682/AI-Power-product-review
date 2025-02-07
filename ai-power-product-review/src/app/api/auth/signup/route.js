@@ -56,6 +56,7 @@ const createUser = async (req) => {
         email,
         password: hashedPwd,
         data: {},
+        image: "",
       });
 
       await newUser.save();
