@@ -69,13 +69,6 @@ const Analyzer = () => {
     setReviewText((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleTextAreaClick = () => {
-    if (analysisResult) {
-      setAnalysisResult(null);
-      setButton("post");
-    }
-  };
-
   return (
     <div className={style.container}>
       {/* Header with Back Button */}
@@ -94,7 +87,6 @@ const Analyzer = () => {
           value={reviewText.text}
           name="text"
           onChange={handleInputOnchange}
-          onClick={handleTextAreaClick}
           id="textArea"
         />
         {button === "post" ? (
