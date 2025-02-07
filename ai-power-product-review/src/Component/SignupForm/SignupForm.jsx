@@ -3,6 +3,7 @@ import style from "./SignupForm.module.css";
 import { FaGoogle } from "react-icons/fa";
 import { LiaTimesSolid } from "react-icons/lia";
 import axios from "axios";
+import { useGlobalContext } from "../Context";
 
 const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
   const [formData, setFormData] = useState({
@@ -11,9 +12,10 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
     password: "",
     confirmPassword: "",
   });
-  const [error, setError] = useState("");
   const [formPhase, setFormPhase] = useState("signup");
   const [loading, setLoading] = useState(false);
+  const {error, setError} = useGlobalContext();
+  console.log(error);
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
@@ -37,6 +39,7 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
       }
     } catch (error) {
       console.error(error);
+      setError(error.response.data.message);
     } finally {
       setLoading(false);
     }

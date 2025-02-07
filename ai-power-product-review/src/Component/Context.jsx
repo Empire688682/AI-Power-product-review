@@ -8,6 +8,7 @@ const AppContext = React.createContext();
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const router = useRouter();
+    const [error, setError] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -21,7 +22,7 @@ export const AppProvider = ({ children }) => {
       if (response.data.success) {
         if (typeof window !== "undefined") {
           localStorage.removeItem("userData");
-          router.refresh();
+          router.push("/");
         }
       }
     } catch (error) {
@@ -35,6 +36,8 @@ export const AppProvider = ({ children }) => {
         user,
         setUser,
         logoutUser,
+        error,
+        setError,
       }}
     >
       {children}
