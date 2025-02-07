@@ -18,6 +18,7 @@
 
 .userImg{
   cursor: pointer;
+  border-radius: 50%;
 }
 
 .userEditIcon{

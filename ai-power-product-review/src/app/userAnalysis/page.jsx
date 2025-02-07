@@ -9,18 +9,28 @@ import { IoIosArrowDown } from "react-icons/io";
 const UserAnalysis = () => {
   const { user } = useGlobalContext();
   const [selectedChart, setSelectedChart] = useState("bar");
+  const [image, setImage] = useState("");
+
+  useEffect(() => {
+    if (user.image) {
+      setImage(user.image);
+    }
+  }, [user]);
+
+  console.log(image)
 
   return (
     <div className={style.container}>
       <div className={style.containerHeader}>
-        <div className={style.imgCon}>
-        <Image className={style.userImg} src="/avatar_icon.png" alt="IMG" width={50} height={50}/>
-        <IoIosArrowDown className={style.userEditIcon} />
-        </div>
-      <h1>
-        <FaHeart className={style.icon} />
-        {user.username} Analysis
-      </h1>
+        <label className={style.imgCon} htmlFor="image">
+          <Image className={style.userImg} src={image ? URL.createObjectURL(image) : "/avatar_icon.png"} alt="IMG" width={50} height={50} />
+          <IoIosArrowDown className={style.userEditIcon} />
+        </label>
+        <input type="file" accept="image/*" onChange={(e)=>setImage(e.target.files[0])} name="" id="image" hidden />
+        <h1>
+          <FaHeart className={style.icon} />
+          {user.username} Analysis
+        </h1>
       </div>
 
       <div className={style.chartSelector}>
