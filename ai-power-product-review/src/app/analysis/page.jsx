@@ -41,7 +41,6 @@ const Analyzer = () => {
           confidence: maxConfidence + "%",
           keywords: response.data.data.words,
         });
-        setReviewText({ text: "" });
         setButton("reset");
         const clickedElement = document.getElementById("textArea").focus();
         if (clickedElement) {
