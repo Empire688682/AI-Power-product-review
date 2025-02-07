@@ -36,6 +36,7 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
         setIsOpen(false);
         const userData = response.data.data;
         localStorage.setItem("userData", JSON.stringify(userData));
+        window.location.reload();
       }
     } catch (error) {
       console.error(error);

@@ -38,7 +38,7 @@ const loginUser = async (req) => {
       const isPwdMatch = await bcrypt.compare(password, user.password);
       if (!isPwdMatch) {
         return NextResponse.json(
-          { success: false, message: "Incorect password" },
+          { success: false, message: "Incorect password. Note: Passwords are case-sensitive. "},
           { status: 400 },
         );
       }

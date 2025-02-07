@@ -72,6 +72,18 @@ const NavBar = () => {
         >
           About
         </Link>
+        {
+          user && (
+            <Link
+            style={{ textDecoration: "none" }}
+            className={pathname === "userAnalysis" ? `${style.active}` : `${style.menu}`}
+            href="/userAnalysis"
+            onClick={() => toggleMenu()}
+          >
+            My Data
+          </Link>
+          )
+        }
         <li>
           {user ? (
             <button

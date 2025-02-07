@@ -1,13 +1,11 @@
 "use client";
 import axios from "axios";
 import React, { useContext, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const router = useRouter();
     const [error, setError] = useState("");
 
   useEffect(() => {
@@ -22,7 +20,7 @@ export const AppProvider = ({ children }) => {
       if (response.data.success) {
         if (typeof window !== "undefined") {
           localStorage.removeItem("userData");
-          router.push("/");
+          window.location.reload();
         }
       }
     } catch (error) {
