@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import style from "./UserAnalysis.module.css";
 import { FaHeart } from "react-icons/fa";
 import { useGlobalContext } from "@/Component/Context";
+import Image from "next/image";
+import { IoIosArrowDown } from "react-icons/io";
 
 const UserAnalysis = () => {
   const { user } = useGlobalContext();
@@ -10,10 +12,16 @@ const UserAnalysis = () => {
 
   return (
     <div className={style.container}>
+      <div className={style.containerHeader}>
+        <div className={style.imgCon}>
+        <Image className={style.userImg} src="/avatar_icon.png" alt="IMG" width={50} height={50}/>
+        <IoIosArrowDown className={style.userEditIcon} />
+        </div>
       <h1>
         <FaHeart className={style.icon} />
         {user.username} Analysis
       </h1>
+      </div>
 
       <div className={style.chartSelector}>
         <label htmlFor="chartType">Select Chart Type:</label>
