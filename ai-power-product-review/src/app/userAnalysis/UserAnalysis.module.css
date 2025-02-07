@@ -1,42 +1,41 @@
 .container {
-    max-width: 800px;
-    margin: auto;
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .container h1{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    justify-content: center;
-  }
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
 
-  .icon{
-    color: red;
-  }
-  
-  .chartSelector {
-    margin: 20px 0;
-  }
-  
-  .chartSelector label {
-    font-size: 16px;
-    margin-right: 10px;
-  }
-  
-  .chartSelector select {
-    padding: 5px;
-    font-size: 16px;
-  }
-  
-  .chartContainer {
-    width: 100%;
-    height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-  }
-  
+.container h1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.icon {
+  color: red;
+}
+
+.chartSelector {
+  margin: 20px 0;
+}
+
+.chartSelector label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.chartSelector select {
+  padding: 5px;
+  font-size: 16px;
+}
+
+.chartContainer {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+}

@@ -27,14 +27,16 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       console.log("ERROR:", error);
     }
-  }
+  };
 
   return (
-    <AppContext.Provider value={{
-      user,
-      setUser,
-      logoutUser
-    }}>
+    <AppContext.Provider
+      value={{
+        user,
+        setUser,
+        logoutUser,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

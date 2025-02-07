@@ -11,7 +11,7 @@ const NavBar = () => {
   const [showSignup, setShowSignup] = useState(false);
   const rawPathname = usePathname();
   const pathname = rawPathname === "/" ? "home" : rawPathname.replace("/", "");
-  const {user, logoutUser} = useGlobalContext()
+  const { user, logoutUser } = useGlobalContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -32,7 +32,6 @@ const NavBar = () => {
       document.body.style.overflow = "unset";
     }
   }, [showSignup]);
-  
 
   return (
     <nav className={style.navbar}>
@@ -74,31 +73,35 @@ const NavBar = () => {
           About
         </Link>
         <li>
-          {
-            user? <button
-            className={style.signupBtn}
-            onClick={() => {
-              logoutUser();
-              toggleMenu();
-            }}
-          >
-            Logout
-          </button>
-          :
-          <button
-            className={style.signupBtn}
-            onClick={() => {
-              setShowSignup(true);
-              toggleMenu();
-            }}
-          >
-            Sign Up
-          </button>
-          }
+          {user ? (
+            <button
+              className={style.signupBtn}
+              onClick={() => {
+                logoutUser();
+                toggleMenu();
+              }}
+            >
+              Logout
+            </button>
+          ) : (
+            <button
+              className={style.signupBtn}
+              onClick={() => {
+                setShowSignup(true);
+                toggleMenu();
+              }}
+            >
+              Sign Up
+            </button>
+          )}
         </li>
       </ul>
       {showSignup && (
-        <SignupForm setIsOpen={setIsOpen} setShowSignup={setShowSignup} showSignup={showSignup} />
+        <SignupForm
+          setIsOpen={setIsOpen}
+          setShowSignup={setShowSignup}
+          showSignup={showSignup}
+        />
       )}
     </nav>
   );

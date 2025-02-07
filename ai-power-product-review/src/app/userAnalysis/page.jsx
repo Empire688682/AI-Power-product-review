@@ -5,13 +5,16 @@ import { FaHeart } from "react-icons/fa";
 import { useGlobalContext } from "@/Component/Context";
 
 const UserAnalysis = () => {
-  const {user} = useGlobalContext();
+  const { user } = useGlobalContext();
   const [selectedChart, setSelectedChart] = useState("bar");
 
   return (
     <div className={style.container}>
-      <h1><FaHeart className={style.icon} />{user.username} Analysis</h1>
-      
+      <h1>
+        <FaHeart className={style.icon} />
+        {user.username} Analysis
+      </h1>
+
       <div className={style.chartSelector}>
         <label htmlFor="chartType">Select Chart Type:</label>
         <select
@@ -24,9 +27,11 @@ const UserAnalysis = () => {
           <option value="custom">Custom Chart</option>
         </select>
       </div>
-      
+
       <div className={style.chartContainer}>
-        <p>Chart will be displayed here based on user selection ({selectedChart})</p>
+        <p>
+          Chart will be displayed here based on user selection ({selectedChart})
+        </p>
       </div>
     </div>
   );
