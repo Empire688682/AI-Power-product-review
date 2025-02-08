@@ -21,6 +21,7 @@ export const AppProvider = ({ children }) => {
       if (response.data.success) {
         if (typeof window !== "undefined") {
           localStorage.removeItem("userData");
+          localStorage.removeItem("ClientImage");
           window.location.reload();
         }
       }
