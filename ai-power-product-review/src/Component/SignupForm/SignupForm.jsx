@@ -14,7 +14,7 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
   });
   const [formPhase, setFormPhase] = useState("signup");
   const [loading, setLoading] = useState(false);
-  const {error, setError} = useGlobalContext();
+  const { error, setError } = useGlobalContext();
   console.log(error);
 
   const handleOnchange = (e) => {

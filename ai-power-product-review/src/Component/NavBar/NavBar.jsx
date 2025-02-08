@@ -72,18 +72,18 @@ const NavBar = () => {
         >
           About
         </Link>
-        {
-          user && (
-            <Link
+        {user && (
+          <Link
             style={{ textDecoration: "none" }}
-            className={pathname === "userAnalysis" ? `${style.active}` : `${style.menu}`}
+            className={
+              pathname === "userAnalysis" ? `${style.active}` : `${style.menu}`
+            }
             href="/userAnalysis"
             onClick={() => setIsOpen(false)}
           >
             My Data
           </Link>
-          )
-        }
+        )}
         <li>
           {user ? (
             <button

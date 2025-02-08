@@ -20,7 +20,7 @@ const UserAnalysis = () => {
         setSavedImage(JSON.parse(clientImage));
       }
     }
-  }, []);  
+  }, []);
 
   useEffect(() => {
     if (image) {
@@ -35,8 +35,11 @@ const UserAnalysis = () => {
       formData.append("userId", user._id);
       const response = await axios.post("/api/profileImage", formData);
       if (response.data.success) {
-        if(typeof window !== "undefined"){
-          localStorage.setItem("ClientImage", JSON.stringify(response.data.imageUrl ))
+        if (typeof window !== "undefined") {
+          localStorage.setItem(
+            "ClientImage",
+            JSON.stringify(response.data.imageUrl),
+          );
         }
         window.location.reload();
       }
@@ -45,15 +48,26 @@ const UserAnalysis = () => {
     }
   };
 
-
   return (
     <div className={style.container}>
       <div className={style.containerHeader}>
-      <Image className={style.userImg} src={savedImage ? `${savedImage}` : "/avatar_icon.png"} alt="IMG" width={50} height={50} />
+        <Image
+          className={style.userImg}
+          src={savedImage ? `${savedImage}` : "/avatar_icon.png"}
+          alt="IMG"
+          width={50}
+          height={50}
+        />
         <label htmlFor="image">
-        <p>Change image</p>
+          <p>Change image</p>
         </label>
-        <input type="file" accept="image/*" onChange={(e)=>setImage(e.target.files[0])} id="image" hidden />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files[0])}
+          id="image"
+          hidden
+        />
         <h1>
           <FaHeart className={style.icon} />
           {user.username} Analysis

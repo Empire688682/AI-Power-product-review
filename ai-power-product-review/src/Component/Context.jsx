@@ -6,12 +6,12 @@ const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState({});
-    const [error, setError] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
-      setUser(storedData !== "undefined" ? JSON.parse(storedData): {});
+      setUser(storedData !== "undefined" ? JSON.parse(storedData) : {});
     }
   }, []);
 
