@@ -36,11 +36,6 @@ const UserAnalysis = () => {
     }
   };
 
-  useEffect(()=>{
-    if(image){
-      edditImage();
-    }
-  },[image])
 
   return (
     <div className={style.container}>
