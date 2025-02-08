@@ -48,7 +48,7 @@ const profileImage = async (req) => {
 
         await UserModel.findOneAndUpdate({_id:userId}, {image:imageName}, {new:true});
         
-        return NextResponse.json({ success: true, message: "Profile image updated successfully", data:user , imageUrl: `/images/${imageName}`}, {status:200});
+        return NextResponse.json({ success: true, message: "Profile image updated successfully", user , imageUrl: `/images/${imageName}`}, {status:200});
 
     } catch (error) {
         console.log("ERROR:",error);

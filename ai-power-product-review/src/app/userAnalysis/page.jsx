@@ -4,32 +4,41 @@ import style from "./UserAnalysis.module.css";
 import { FaHeart } from "react-icons/fa";
 import { useGlobalContext } from "@/Component/Context";
 import Image from "next/image";
-import { IoIosArrowDown } from "react-icons/io";
 import axios from "axios";
 
 const UserAnalysis = () => {
   const { user } = useGlobalContext();
   const [selectedChart, setSelectedChart] = useState("bar");
   const [image, setImage] = useState("");
-  console.log("image:", image);
+
+  const [savedImage, setSavedImage] = useState("");
 
   useEffect(() => {
-    if (user.image) {
-      setImage(user.image);
+    if (typeof window !== "undefined") {
+      const clientImage = localStorage.getItem("ClientImage");
+      if (clientImage && clientImage !== "undefined") {
+        setSavedImage(JSON.parse(clientImage));
+      }
     }
-  }, [user]);
+  }, []);  
+
+  useEffect(() => {
+    if (image) {
+      edditImage();
+    }
+  }, [image]);
 
   const edditImage = async () => {
     try {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("userId", user._id);
-      const response = await axios.post("/api/profileImaga", formData);
+      const response = await axios.post("/api/profileImage", formData);
       if (response.data.success) {
-        window.location.reload();
-        if (typeof window !== "undefined") {
-          localStorage.setItem("userData", JSON.stringify(response.data.data));
+        if(typeof window !== "undefined"){
+          localStorage.setItem("ClientImage", JSON.stringify(response.data.imageUrl ))
         }
+        window.location.reload();
       }
     } catch (error) {
       console.log("ERROR:", error);
@@ -40,11 +49,11 @@ const UserAnalysis = () => {
   return (
     <div className={style.container}>
       <div className={style.containerHeader}>
-        <label className={style.imgCon} htmlFor="image">
-          <Image className={style.userImg} src={image ? `/images/${image}` : "/avatar_icon.png"} alt="IMG" width={50} height={50} />
-          <IoIosArrowDown className={style.userEditIcon} />
+      <Image className={style.userImg} src={savedImage ? `${savedImage}` : "/avatar_icon.png"} alt="IMG" width={50} height={50} />
+        <label htmlFor="image">
+        <p>Change image</p>
         </label>
-        <input type="file" accept="image/*" onChange={(e)=>setImage(e.target.files[0])} name="" id="image" hidden />
+        <input type="file" accept="image/*" onChange={(e)=>setImage(e.target.files[0])} id="image" hidden />
         <h1>
           <FaHeart className={style.icon} />
           {user.username} Analysis
