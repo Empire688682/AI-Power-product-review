@@ -64,7 +64,7 @@ const createUser = async (req) => {
 
     await newUser.save();
 
-    const verificationLink = `${process.env.NEXT_PUBLIC_BASE_URL}?token=${verificationToken}`;
+    const verificationLink = `${process.env.BASE_URL}?token=${verificationToken}` || "http://localhost:3000";
     await sendVerificationEmail(email, verificationLink);
 
     const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY);
@@ -85,7 +85,7 @@ const createUser = async (req) => {
   } catch (error) {
     console.error("CreateUserError:", error);
     return NextResponse.json(
-      { success: false, message: error },
+      { success: false, message: "An error occurred while creating the user." },
       { status: 500 },
     );
   }
