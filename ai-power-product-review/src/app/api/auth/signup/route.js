@@ -5,7 +5,7 @@ import validator from "validator";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { admin } from "../firebase/route";
+import { sendVerificationEmail } from "../sendVerificationEmail/route";
 dotenv.config();
 
 const createUser = async (req) => {
@@ -48,17 +48,9 @@ const createUser = async (req) => {
         { status: 400 },
       );
     };
-    // **Create user in Firebase**
-    const firebaseUser = await admin.auth().createUser({
-      email,
-      password,
-      emailVerified:false,
-      displayName:username,
-    });
-    // **Send email verification**
-    await sendEmailVerification(firebaseUser.user);
 
     const hashedPwd = await bcrypt.hash(password, 10);
+    const verificationToken = jwt.sign({ email }, process.env.SECRET_KEY);
 
     const newUser = new UserModel({
       username,
@@ -66,10 +58,14 @@ const createUser = async (req) => {
       password: hashedPwd,
       data: {},
       image: "",
-      emailVerified:false
+      emailVerified: false,
+      verificationToken
     });
 
     await newUser.save();
+
+    const verificationLink = `${process.env.NEXT_PUBLIC_BASE_URL}?token=${verificationToken}`;
+    await sendVerificationEmail(email, verificationLink);
 
     const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY);
 
