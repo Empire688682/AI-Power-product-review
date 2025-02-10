@@ -64,7 +64,7 @@ const createUser = async (req) => {
 
     await newUser.save();
 
-    const verificationLink = `${process.env.BASE_URL}?token=${verificationToken}` || "http://localhost:3000";
+    const verificationLink = `${process.env.BASE_URL}/verify-email?token=${verificationToken}` || "http://localhost:3000";
     await sendVerificationEmail(email, verificationLink);
 
     const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY);

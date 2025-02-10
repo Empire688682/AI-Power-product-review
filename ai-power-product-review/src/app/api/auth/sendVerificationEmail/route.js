@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const sendVerificationEmail = async (toEmail, verificationLink) => {
-    console.log("DATA:", process.env.EMAIL_HOST, Number(process.env.EMAIL_PORT), process.env.EMAIL_USER, process.env.EMAIL_PASS);
     try {
         const transporter = nodemailer.createTransport({
             host:process.env.EMAIL_HOST,
