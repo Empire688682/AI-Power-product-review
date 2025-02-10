@@ -7,6 +7,8 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     data: { type: Object, default: "" },
     image: { type: String, default: "" },
+    emailVerified: { type: Boolean, default: false },
+    verificationToken: { type: String },
   },
   { minimize: false },
 );
