@@ -5,6 +5,8 @@ import validator from "validator";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { auth } from "../firebase/route";
+import {createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 dotenv.config();
 
 const createUser = async (req) => {
