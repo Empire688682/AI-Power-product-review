@@ -5,8 +5,8 @@ import validator from "validator";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-dotenv.config();
 import { sendVerificationEmail } from "../sendVerificationEmail/route";
+dotenv.config();
 
 const createUser = async (req) => {
   const reqBody = await req.json();
@@ -64,7 +64,7 @@ const createUser = async (req) => {
 
     await newUser.save();
 
-    const verificationLink = `${process.env.BASE_URL}/verify-email?eamil=${verificationToken}`;
+    const verificationLink = `${process.env.BASE_URL}?token=${verificationToken}` || "http://localhost:3000";
     await sendVerificationEmail(email, verificationLink);
 
     const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY);
