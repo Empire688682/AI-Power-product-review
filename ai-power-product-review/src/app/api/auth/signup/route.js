@@ -49,7 +49,13 @@ const createUser = async (req) => {
           { success: false, message: "Password do not match" },
           { status: 400 },
         );
-      }
+      };
+
+
+      // **Create user in Firebase**
+      const firebaseUser = await createUserWithEmailAndPassword(auth, email, password );
+      // **Send email verification**
+      await sendEmailVerification(firebaseUser.user);
 
       const hashedPwd = await bcrypt.hash(password, 10);
 
