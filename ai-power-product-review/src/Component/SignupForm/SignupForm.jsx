@@ -15,7 +15,7 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
   const [formPhase, setFormPhase] = useState("signup");
   const [loading, setLoading] = useState(false);
   const { error, setError } = useGlobalContext();
-  console.log(error);
+  const [disableButton, setDisableButton] = useState(false);
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +31,19 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
     try {
       setLoading(true);
       const response = await axios.post(`${baseUrl}`, formData);
-      if (response.data.success) {
+      if (formPhase === "signup" && response.data.success) {
+        setIsOpen(false);
+        setFormData({
+          username: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+        })
+        const userData = response.data.data;
+        localStorage.setItem("userData", JSON.stringify(userData));
+        setDisableButton(true)
+      }
+      if (formPhase === "login" && response.data.success) {
         setShowSignup(false);
         setIsOpen(false);
         const userData = response.data.data;
@@ -136,7 +148,7 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
           {error && <div className={style.error}>{error}</div>}
 
           <button
-            disabled={loading}
+            disabled={loading || disableButton}
             type="submit"
             className={style.submitButton}
           >

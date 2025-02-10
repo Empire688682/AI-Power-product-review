@@ -67,21 +67,11 @@ const createUser = async (req) => {
     const verificationLink = `${process.env.BASE_URL}/verify-email?token=${verificationToken}` || "http://localhost:3000";
     await sendVerificationEmail(email, verificationLink);
 
-    const token = jwt.sign({ id: newUser._id }, process.env.SECRET_KEY);
-
-    const res = NextResponse.json(
+    return NextResponse.json(
       { success: true, message: "New user created", data: newUser },
       { status: 200 },
     );
 
-    res.cookies.set("AIToken", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      maxAge: 60 * 60 * 24 * 2,
-      path: "/",
-    });
-    return res;
   } catch (error) {
     console.error("CreateUserError:", error);
     return NextResponse.json(
