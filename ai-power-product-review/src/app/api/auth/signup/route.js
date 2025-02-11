@@ -65,7 +65,7 @@ const createUser = async (req) => {
     await newUser.save();
 
     const verificationLink =
-      `${process.env.BASE_URL}/verify-email?token=${verificationToken}/username=${username}` ||
+      `${process.env.BASE_URL}/verify-email?token=${verificationToken}&username=${newUser.username}` ||
       "http://localhost:3000";
     await sendVerificationEmail(email, verificationLink);
 
