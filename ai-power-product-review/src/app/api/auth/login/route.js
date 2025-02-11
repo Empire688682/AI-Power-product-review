@@ -50,10 +50,15 @@ const loginUser = async (req) => {
 
       const emailVerified = await user.emailVerified;
 
-      if(!emailVerified){
+      if (!emailVerified) {
         console.log("EmailVerify:", emailVerified);
         return NextResponse.json(
-          { success: false, message: "User not verifiled, please check your email for verification link", data: user },
+          {
+            success: false,
+            message:
+              "User not verifiled, please check your email for verification link",
+            data: user,
+          },
           { status: 400 },
         );
       }
@@ -71,7 +76,6 @@ const loginUser = async (req) => {
         path: "/",
       });
       return res;
-      
     } catch (error) {
       console.error("CreateUserError:", error);
       return NextResponse.json(

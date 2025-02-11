@@ -47,7 +47,7 @@ const createUser = async (req) => {
         { success: false, message: "Password do not match" },
         { status: 400 },
       );
-    };
+    }
 
     const hashedPwd = await bcrypt.hash(password, 10);
     const verificationToken = jwt.sign({ email }, process.env.SECRET_KEY);
@@ -59,19 +59,20 @@ const createUser = async (req) => {
       data: {},
       image: "",
       emailVerified: false,
-      verificationToken
+      verificationToken,
     });
 
     await newUser.save();
 
-    const verificationLink = `${process.env.BASE_URL}/verify-email?token=${verificationToken}/username=${username}` || "http://localhost:3000";
+    const verificationLink =
+      `${process.env.BASE_URL}/verify-email?token=${verificationToken}/username=${username}` ||
+      "http://localhost:3000";
     await sendVerificationEmail(email, verificationLink);
 
     return NextResponse.json(
       { success: true, message: "New user created", data: newUser },
       { status: 200 },
     );
-
   } catch (error) {
     console.error("CreateUserError:", error);
     return NextResponse.json(

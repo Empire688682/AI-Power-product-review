@@ -38,7 +38,7 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
           email: "",
           password: "",
           confirmPassword: "",
-        })
+        });
         const userData = response.data.data;
         localStorage.setItem("userData", JSON.stringify(userData));
         setDisableButton(true);
