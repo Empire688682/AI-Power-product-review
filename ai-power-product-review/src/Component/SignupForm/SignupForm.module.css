@@ -11,6 +11,16 @@
   z-index: 1000;
 }
 
+.formWrapperForReset{
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  height: 80%;
+  width: 400px;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
 .formWrapper {
   background-color: white;
   padding: 2rem;
@@ -191,7 +201,7 @@
 }
 
 @media (max-width: 768px) {
-  .formWrapper {
+  .formWrapper,.formWrapperForReset {
     width: 300px;
   }
 }

@@ -77,17 +77,13 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
     <div className={style.formContainer}>
       {
         resetPwd && (
-          <div className={style.formWrapper}>
+          <div className={style.formWrapperForReset}>
              <span
               className={style.closeButton}
               onClick={() => setResetPwd(false)}
             >
               <LiaTimesSolid />
             </span>
-
-            <h2 className={style.title}>
-              Reset Password
-            </h2>
             <ResetPassword/>
           </div>
         )
