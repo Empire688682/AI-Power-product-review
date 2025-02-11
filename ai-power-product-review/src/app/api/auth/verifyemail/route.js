@@ -18,7 +18,10 @@ export async function POST(req) {
             return NextResponse.json({ success: false, message: "Invalid or expired token" }, { status: 401 });
         }
 
-        // Update the user's verification status
+        // geting user for frontend purpose
+        const user = await UserModel.findOne({email});
+
+        // Update the user's verification status 
         const updatedUser = await UserModel.findOneAndUpdate(
             { email }, // Filter to find the user by email
             { emailVerified: true, verificationToken: "" }, // Update fields
@@ -29,7 +32,7 @@ export async function POST(req) {
             return NextResponse.json({ success: false, message: "Failed to update user verification status" }, { status: 500 });
         }
 
-        const res = NextResponse.json({ success: true, message: "User signed up and verified" }, { status: 200 });
+        const res = NextResponse.json({ success: true, message: "User signed up and verified", data: user }, { status: 200 });
         res.cookies.set("AIToken", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",

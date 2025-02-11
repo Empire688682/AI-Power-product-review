@@ -41,7 +41,9 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
         })
         const userData = response.data.data;
         localStorage.setItem("userData", JSON.stringify(userData));
-        setDisableButton(true)
+        setDisableButton(true);
+        setShowSignup(false);
+        alert("An email has been sent to you to verify your account.");
       }
       if (formPhase === "login" && response.data.success) {
         setShowSignup(false);
