@@ -60,6 +60,7 @@ const createUser = async (req) => {
       image: "",
       emailVerified: false,
       verificationToken,
+      forgettenPasswordToken: verificationToken,
     });
 
     await newUser.save();

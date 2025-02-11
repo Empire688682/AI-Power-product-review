@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema(
     data: { type: Object, default: "" },
     image: { type: String, default: "" },
     emailVerified: { type: Boolean, default: false },
-    verificationToken: { type: String },
+    verificationToken: { type: String, default: "" },
+    forgettenPasswordToken: { type: String, default: "" },
   },
   { minimize: false },
 );
