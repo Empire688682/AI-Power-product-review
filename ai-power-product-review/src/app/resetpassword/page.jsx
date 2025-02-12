@@ -4,11 +4,23 @@ import styles from "./ResetPassword.module.css";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/Component/Context";
 const ResetPassword = () => {
+  const {
+    setShowSignup,
+        showSignup,
+        setIsOpen,
+        isOpen,
+        resetPwd, 
+        setResetPwd,
+        formPhase, 
+        setFormPhase
+  } = useGlobalContext();
   const searchParams = useSearchParams();
   const token = searchParams.get("Emailtoken");
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
   const router = useRouter()
   const [data, setData] = useState({
     password: "",
@@ -29,8 +41,8 @@ const ResetPassword = () => {
       setLoading(true)
         const response = await axios.post("api/auth/resetPassword", formData);
         if(response.data.success){
-          alert("Password changed successful");
-          
+          setSuccessMsg(response.data.message);
+
         }
     } catch (error) {
         console.log("Error resetingPwd:", error);
@@ -94,6 +106,11 @@ const ResetPassword = () => {
           {
             errorMsg && (
               <p className={styles.errorMsg}>{errorMsg}</p>
+            )
+          }
+          {
+            successMsg && (
+              <p className={styles.successMsg}>{successMsg}</p>
             )
           }
         </form>
