@@ -1,14 +1,27 @@
 // pages/reset-password.jsx
 import { useState } from 'react';
 import styles from "./ResetPassword.module.css";
+import axios from 'axios';
 
-export default function ResetPassword() {
+export default function ResetPassword({setShowSignup}) {
     const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Implement your password reset logic here
-        console.log('Password reset link sent to:', email);
+        try {
+            setLoading(true)
+            const response = await axios.post('api/auth/forgettenPwd', {email});
+            if(response.data.success){
+                alert("Password reset link sent to: " + email);
+                setShowSignup(false);
+            }
+        } catch (error) {
+            console.log("ERROR sending email:", error);
+        }
+        finally{
+            setLoading(false)
+        }
     };
 
     return (

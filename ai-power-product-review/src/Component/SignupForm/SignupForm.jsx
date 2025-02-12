@@ -84,7 +84,7 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
             >
               <LiaTimesSolid />
             </span>
-            <ResetPassword/>
+            <ResetPassword setShowSignup={setShowSignup}/>
           </div>
         )
       }
