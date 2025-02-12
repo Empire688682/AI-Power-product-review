@@ -37,9 +37,8 @@ export async function POST(req) {
             return NextResponse.json({ success: false, message: "Password already used" }, { status: 400 })
         }
         const hashedPwd = await bcrypt.hash(password, 10);
-        const updateForgettenPasswordToken = jwt.sign( {email}, process.env.SECRET_KEY);
 
-        await UserModel.findOneAndUpdate({ email }, { password: hashedPwd, forgettenPasswordToken: updateForgettenPasswordToken }, { new: true });
+        await UserModel.findOneAndUpdate({ email }, { password: hashedPwd, forgettenPasswordToken: "" }, { new: true });
         return NextResponse.json({ success: true, message: "Password changed successful" }, { status: 200 });
 
     } catch (error) {
