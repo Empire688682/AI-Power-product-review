@@ -10,7 +10,7 @@ export async function POST (req){
         if(!email){
             return NextResponse.json({ success: false, message: "Email required" }, { status: 400 });
         }
-        const resetingPwdLink = `${process.env.BASE_URL}/resetpassword?token=${email}`
+        const resetingPwdLink = `${process.env.BASE_URL}/resetpassword?Emailtoken=${email}`
         await sendPasswordResettingEmail(email, resetingPwdLink);
         return NextResponse.json({ success: true, message: "Email sent" }, { status: 200 });
     } catch (error) {
