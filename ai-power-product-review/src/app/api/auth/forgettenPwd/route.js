@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import { NextResponse } from "next/server";
 import { UserModel } from "../../model/UserModel";
 import { ConnectDb } from "../../utils/ConnectDb";
-ConnectDb
+import jwt from "jsonwebtoken";
 dotenv.config();
 
 export async function POST (req){
