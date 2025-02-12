@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import style from "./SignupForm.module.css";
 import { FaGoogle } from "react-icons/fa";
@@ -8,7 +8,15 @@ import { useGlobalContext } from "../Context";
 import ResetPassword from "../ResetPassword/ResetPassword";
 
 const SignupForm = () => {
-  const { setShowSignup, showSignup, setIsOpen, resetPwd, setResetPwd,formPhase, setFormPhase } = useGlobalContext();
+  const {
+    setShowSignup,
+    showSignup,
+    setIsOpen,
+    resetPwd,
+    setResetPwd,
+    formPhase,
+    setFormPhase,
+  } = useGlobalContext();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -75,124 +83,122 @@ const SignupForm = () => {
 
   return (
     <div className={style.formContainer}>
-      {
-        resetPwd && (
-          <div className={style.formWrapperForReset}>
-             <span
-              className={style.closeButton}
-              onClick={() => setResetPwd(false)}
-            >
-              <LiaTimesSolid />
-            </span>
-            <ResetPassword/>
+      {resetPwd && (
+        <div className={style.formWrapperForReset}>
+          <span
+            className={style.closeButton}
+            onClick={() => setResetPwd(false)}
+          >
+            <LiaTimesSolid />
+          </span>
+          <ResetPassword />
+        </div>
+      )}
+      {!resetPwd && (
+        <div className={style.formWrapper}>
+          <span
+            className={style.closeButton}
+            onClick={() => setShowSignup(!showSignup)}
+          >
+            <LiaTimesSolid />
+          </span>
+
+          <h2 className={style.title}>
+            {formPhase === "signup" ? "Sign Up" : "Sign In"}
+          </h2>
+
+          <button className={style.googleButton} onClick={handleGoogleSignup}>
+            <FaGoogle className={style.googleIcon} />
+            Continue with Google
+          </button>
+
+          <div className={style.divider}>
+            <span>or</span>
           </div>
-        )
-      }
-      {
-        !resetPwd && (
-          <div className={style.formWrapper}>
-            <span
-              className={style.closeButton}
-              onClick={() => setShowSignup(!showSignup)}
-            >
-              <LiaTimesSolid />
-            </span>
 
-            <h2 className={style.title}>
-              {formPhase === "signup" ? "Sign Up" : "Sign In"}
-            </h2>
-
-            <button className={style.googleButton} onClick={handleGoogleSignup}>
-              <FaGoogle className={style.googleIcon} />
-              Continue with Google
-            </button>
-
-            <div className={style.divider}>
-              <span>or</span>
-            </div>
-
-            <form onSubmit={handleSubmit} className={style.form}>
-              {formPhase === "signup" && (
-                <div className={style.inputGroup}>
-                  <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleOnchange}
-                    required
-                    placeholder="Your username"
-                    minLength="8"
-                  />
-                </div>
-              )}
+          <form onSubmit={handleSubmit} className={style.form}>
+            {formPhase === "signup" && (
               <div className={style.inputGroup}>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
+                  type="text"
+                  id="username"
+                  name="username"
+                  value={formData.username}
                   onChange={handleOnchange}
                   required
-                  placeholder="Enter your email"
-                />
-              </div>
-
-              <div className={style.inputGroup}>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleOnchange}
-                  required
-                  placeholder="Your password"
+                  placeholder="Your username"
                   minLength="8"
                 />
               </div>
+            )}
+            <div className={style.inputGroup}>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleOnchange}
+                required
+                placeholder="Enter your email"
+              />
+            </div>
 
-              {formPhase === "signup" && (
-                <div className={style.inputGroup}>
-                  <input
-                    type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
-                    onChange={handleOnchange}
-                    required
-                    placeholder="Confirm your password"
-                  />
-                </div>
-              )}
+            <div className={style.inputGroup}>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleOnchange}
+                required
+                placeholder="Your password"
+                minLength="8"
+              />
+            </div>
 
-              {error && <div className={style.error}>{error}</div>}
+            {formPhase === "signup" && (
+              <div className={style.inputGroup}>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleOnchange}
+                  required
+                  placeholder="Confirm your password"
+                />
+              </div>
+            )}
 
-              <button
-                disabled={loading || disableButton}
-                type="submit"
-                className={style.submitButton}
-              >
-                {formPhase === "signup"
-                  ? `${loading ? "Signing up..." : "Sign Up"}`
-                  : `${loading ? "Signing in..." : "Sign In"}`}
-              </button>
-            </form>
+            {error && <div className={style.error}>{error}</div>}
 
-            <p className={style.forgetPwd} onClick={() => setResetPwd(true)}>Forgot password</p>
-
-            <p className={style.login}>
+            <button
+              disabled={loading || disableButton}
+              type="submit"
+              className={style.submitButton}
+            >
               {formPhase === "signup"
-                ? "Already have an account?"
-                : "Don't have an account?"}
-              {formPhase === "signup" ? (
-                <span onClick={() => setFormPhase("login")}>Log In</span>
-              ) : (
-                <span onClick={() => setFormPhase("signup")}>Sign Up</span>
-              )}
-            </p>
-          </div>
-        )
-      }
+                ? `${loading ? "Signing up..." : "Sign Up"}`
+                : `${loading ? "Signing in..." : "Sign In"}`}
+            </button>
+          </form>
+
+          <p className={style.forgetPwd} onClick={() => setResetPwd(true)}>
+            Forgot password
+          </p>
+
+          <p className={style.login}>
+            {formPhase === "signup"
+              ? "Already have an account?"
+              : "Don't have an account?"}
+            {formPhase === "signup" ? (
+              <span onClick={() => setFormPhase("login")}>Log In</span>
+            ) : (
+              <span onClick={() => setFormPhase("signup")}>Sign Up</span>
+            )}
+          </p>
+        </div>
+      )}
     </div>
   );
 };

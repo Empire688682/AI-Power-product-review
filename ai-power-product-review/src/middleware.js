@@ -15,5 +15,12 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/", "/about", "/userAnalysis", "/analysis", "/verify-email", "/resetpassword"],
+  matcher: [
+    "/",
+    "/about",
+    "/userAnalysis",
+    "/analysis",
+    "/verify-email",
+    "/resetpassword",
+  ],
 };

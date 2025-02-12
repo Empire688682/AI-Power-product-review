@@ -11,7 +11,7 @@
   z-index: 1000;
 }
 
-.formWrapperForReset{
+.formWrapperForReset {
   background-color: white;
   padding: 20px;
   border-radius: 12px;
@@ -161,7 +161,7 @@
   background-color: #666;
 }
 
-.forgetPwd{
+.forgetPwd {
   cursor: pointer;
   text-align: center;
   margin-top: 20px;
@@ -201,7 +201,8 @@
 }
 
 @media (max-width: 768px) {
-  .formWrapper,.formWrapperForReset {
+  .formWrapper,
+  .formWrapperForReset {
     width: 300px;
   }
 }

@@ -45,10 +45,10 @@ export const AppProvider = ({ children }) => {
         showSignup,
         setIsOpen,
         isOpen,
-        resetPwd, 
+        resetPwd,
         setResetPwd,
-        formPhase, 
-        setFormPhase
+        formPhase,
+        setFormPhase,
       }}
     >
       {children}
