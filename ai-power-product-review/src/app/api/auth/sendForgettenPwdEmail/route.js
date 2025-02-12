@@ -24,7 +24,6 @@ export const sendPasswordResettingEmail = async (toEmail, resetingPwdLink) =>{
             html: `<p>Please click the link to reset your password: <a href=${resetingPwdLink}>Password reset</a> </p>`
         };
         await transporter.sendMail(mailOptions);
-        console(`Resetting email sent to: ${toEmail}`);
         return NextResponse.json({success:true, message:"Email sent"}, {status:200})
     } catch (error) {
         console.log("ERROR Sending Msg:", error);

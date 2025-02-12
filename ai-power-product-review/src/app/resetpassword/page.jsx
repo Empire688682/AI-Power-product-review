@@ -28,7 +28,7 @@ const ResetPassword = () => {
     formData.append("username", username);
     try {
       setLoading(true)
-        const response = await axios.post("api/auth/forgettenPwd", {formData});
+        const response = await axios.post("api/auth/resetPassword", {formData});
         if(response.data.success){
           setSuccessMsg("Password changed successful");
         }

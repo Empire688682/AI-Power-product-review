@@ -6,6 +6,7 @@ import axios from 'axios';
 export default function ResetPassword({setShowSignup}) {
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
+    console.log(email);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
