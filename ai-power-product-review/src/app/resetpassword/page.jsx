@@ -7,8 +7,8 @@ import LoadingSpinner from "@/Component/LoadingSpinner/LoadingSpinner";
 const ResetPassword = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("Emailtoken");
-  const username = searchParams.get("username");
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false)
   const [data, setData] = useState({
     password: "",
     confirmPassword: ""
@@ -33,7 +33,7 @@ const ResetPassword = () => {
         }
     } catch (error) {
         console.log("Error resetingPwd:", error);
-        alert("An error occur try again later");
+        setErrorMsg(error.message);
     }
     finally{
       setLoading(true);
@@ -60,7 +60,7 @@ const ResetPassword = () => {
         <p className={styles.subtitle}>
           Please enter your new password below.
         </p>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleFormSubmission}>
           <label htmlFor="password" className={styles.label}>
             New Password
           </label>
@@ -85,7 +85,7 @@ const ResetPassword = () => {
             required
             value={data.confirmPassword}
           />
-          <button type="submit" className={styles.button} onSubmit={handleFormSubmission}>
+          <button type="submit" className={styles.button}>
             {
               loading ? (
                 <LoadingSpinner />
@@ -94,6 +94,11 @@ const ResetPassword = () => {
               )
             }
           </button>
+          {
+            errorMsg && (
+              <p>{errorMsg}</p>
+            )
+          }
         </form>
       </div>
     </div>
