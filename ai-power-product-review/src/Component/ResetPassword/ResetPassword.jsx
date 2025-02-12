@@ -37,7 +37,7 @@ export default function ResetPassword({setShowSignup}) {
                     className={styles.input}
                     required
                 />
-                <button type="submit" className={styles.button}>Send Reset Link</button>
+                <button type="submit" className={styles.button}>{loading ? "Sending..." : "Send Reset Link"}</button>
             </form>
             <p className={styles.infoText}>
                 If you don't receive the reset email within a few minutes, please check your spam folder or ensure that you entered the correct email address. For further assistance, contact our support team.
