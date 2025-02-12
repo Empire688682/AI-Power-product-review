@@ -9,10 +9,10 @@ dotenv.config();
 
 export async function POST(req) {
     await ConnectDb;
-    const formdata = await req.FormData();
-    const token = formdata.get("token");
-    const password = formdata.get("password");
-    const confirmPassword = formdata.get("confirmPassword");
+    const formData = await req.formData();
+    const token = formData.get("token");
+    const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
     console.log("token:", token, "password:", password, "confirmPassword:", confirmPassword)
     try {
         if (!password || !confirmPassword) {
@@ -21,7 +21,7 @@ export async function POST(req) {
         if (password !== confirmPassword) {
             return NextResponse.json({ success: false, message: "Password not match" }, { status: 400 })
         }
-        const email = decodeEmail(token);
+        const email = await decodeEmail(token);
         console.log("Email:", email)
         if (!email) {
             return NextResponse.json({ success: false, message: "Not authenticated" }, { status: 400 })
@@ -37,7 +37,7 @@ export async function POST(req) {
             return NextResponse.json({ success: false, message: "Password already used" }, { status: 400 })
         }
         const hashedPwd = await bcrypt.hash(password, 10);
-        const updateForgettenPasswordToken = jwt.sign({ email }, process.env.JWT_SECRET);
+        const updateForgettenPasswordToken = jwt.sign( {email}, process.env.SECRET_KEY);
 
         await UserModel.findOneAndUpdate({ email }, { password: hashedPwd, forgettenPasswordToken: updateForgettenPasswordToken }, { new: true });
         return NextResponse.json({ success: true, message: "Password changed successful" }, { status: 200 });

@@ -7,7 +7,10 @@ const AppContext = React.createContext();
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+  const [resetPwd, setResetPwd] = useState(false);
+  const [formPhase, setFormPhase] = useState("signup");
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
@@ -38,6 +41,14 @@ export const AppProvider = ({ children }) => {
         logoutUser,
         error,
         setError,
+        setShowSignup,
+        showSignup,
+        setIsOpen,
+        isOpen,
+        resetPwd, 
+        setResetPwd,
+        formPhase, 
+        setFormPhase
       }}
     >
       {children}

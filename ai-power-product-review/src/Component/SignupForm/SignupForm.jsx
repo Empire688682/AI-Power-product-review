@@ -7,18 +7,18 @@ import axios from "axios";
 import { useGlobalContext } from "../Context";
 import ResetPassword from "../ResetPassword/ResetPassword";
 
-const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
+const SignupForm = () => {
+  const { setShowSignup, showSignup, setIsOpen, resetPwd, setResetPwd,formPhase, setFormPhase } = useGlobalContext();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-  const [formPhase, setFormPhase] = useState("signup");
+
   const [loading, setLoading] = useState(false);
   const { error, setError } = useGlobalContext();
   const [disableButton, setDisableButton] = useState(false);
-  const [resetPwd, setResetPwd] = useState(false);
 
   const handleOnchange = (e) => {
     const { name, value } = e.target;
@@ -84,7 +84,7 @@ const SignupForm = ({ setShowSignup, showSignup, setIsOpen }) => {
             >
               <LiaTimesSolid />
             </span>
-            <ResetPassword setShowSignup={setShowSignup}/>
+            <ResetPassword/>
           </div>
         )
       }

@@ -7,8 +7,7 @@ import { usePathname } from "next/navigation";
 import { useGlobalContext } from "../Context";
 
 const NavBar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
+  const { setShowSignup, showSignup, setIsOpen, isOpen } = useGlobalContext();
   const rawPathname = usePathname();
   const pathname = rawPathname === "/" ? "home" : rawPathname.replace("/", "");
   const { user, logoutUser } = useGlobalContext();

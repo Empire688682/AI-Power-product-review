@@ -2,13 +2,14 @@
 import React, { useState } from "react";
 import styles from "./ResetPassword.module.css";
 import { useSearchParams } from "next/navigation";
-import LoadingSpinner from "@/Component/LoadingSpinner/LoadingSpinner";
-
+import axios from "axios";
+import { useRouter } from "next/navigation";
 const ResetPassword = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("Emailtoken");
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(false)
+  const [errorMsg, setErrorMsg] = useState(false);
+  const router = useRouter()
   const [data, setData] = useState({
     password: "",
     confirmPassword: ""
@@ -24,19 +25,19 @@ const ResetPassword = () => {
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
     formData.append("token", token);
-    formData.append("username", username);
     try {
       setLoading(true)
-        const response = await axios.post("api/auth/resetPassword", {formData});
+        const response = await axios.post("api/auth/resetPassword", formData);
         if(response.data.success){
           alert("Password changed successful");
+          
         }
     } catch (error) {
         console.log("Error resetingPwd:", error);
         setErrorMsg(error.message);
     }
     finally{
-      setLoading(true);
+      setLoading(false);
     }
   }
 
@@ -87,16 +88,12 @@ const ResetPassword = () => {
           />
           <button type="submit" className={styles.button}>
             {
-              loading ? (
-                <LoadingSpinner />
-              ) : (
-                "Reset Password"
-              )
+              loading ? "Loading..." : "Reset Password"
             }
           </button>
           {
             errorMsg && (
-              <p>{errorMsg}</p>
+              <p className={styles.errorMsg}>{errorMsg}</p>
             )
           }
         </form>
