@@ -5,6 +5,8 @@ import validator from "validator";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { sendVerificationEmail } from "../sendVerificationEmail/route";
+import { use } from "react";
 dotenv.config();
 
 const loginUser = async (req) => {
@@ -49,9 +51,13 @@ const loginUser = async (req) => {
       const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
 
       const emailVerified = await user.emailVerified;
+      const verificationToken = user.verificationToken;
+      const verificationLink =
+      `${process.env.BASE_URL}/verify-email?token=${verificationToken}&username=${user.username}` ||
+      "http://localhost:3000";
 
       if (!emailVerified) {
-        console.log("EmailVerify:", emailVerified);
+       await sendVerificationEmail(email, verificationLink);
         return NextResponse.json(
           {
             success: false,
