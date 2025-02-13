@@ -5,7 +5,7 @@ import React, { useContext, useState, useEffect } from "react";
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState("");
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
@@ -15,10 +15,10 @@ export const AppProvider = ({ children }) => {
     if (typeof window !== "undefined") {
       try {
         const storedData = localStorage.getItem("userData");
-        setUser(storedData ? JSON.parse(storedData) : null);
+        setUser(storedData ? JSON.parse(storedData) : "");
       } catch (error) {
         console.error("Error parsing userData:", error);
-        setUser(null);
+        setUser("");
       }
     }
   }, []);
