@@ -1,7 +1,6 @@
-'use client';
-import { Suspense } from 'react';
-import ResetPasswordPage from '../ResetPasswordPage/ResetPasswordPage';
-
+"use client";
+import { Suspense } from "react";
+import ResetPasswordPage from "../ResetPasswordPage/ResetPasswordPage";
 
 export default function ResetPasswordWrapper() {
   return (
