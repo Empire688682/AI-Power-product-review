@@ -3,7 +3,6 @@ import { decodeEmail } from "../../emailDecoder/route";
 import { UserModel } from "../../model/UserModel";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { ConnectDb } from "../../utils/ConnectDb";
 dotenv.config();
 
@@ -13,14 +12,7 @@ export async function POST(req) {
   const token = formData.get("token");
   const password = formData.get("password");
   const confirmPassword = formData.get("confirmPassword");
-  console.log(
-    "token:",
-    token,
-    "password:",
-    password,
-    "confirmPassword:",
-    confirmPassword,
-  );
+
   try {
     if (!password || !confirmPassword) {
       return NextResponse.json({
@@ -35,7 +27,6 @@ export async function POST(req) {
       );
     }
     const email = await decodeEmail(token);
-    console.log("Email:", email);
     if (!email) {
       return NextResponse.json(
         { success: false, message: "Not authenticated" },
@@ -43,7 +34,6 @@ export async function POST(req) {
       );
     }
     const user = await UserModel.findOne({ email });
-    console.log("User:", user);
     if (!user) {
       return NextResponse.json(
         { success: false, message: "User not found" },

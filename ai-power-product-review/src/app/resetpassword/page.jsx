@@ -6,12 +6,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/Component/Context";
 const ResetPassword = () => {
-  const {
-    setShowSignup,
-    showSignup,
-    setResetPwd,
-    setFormPhase,
-  } = useGlobalContext();
+  const { setShowSignup, showSignup, setResetPwd, setFormPhase } =
+    useGlobalContext();
   const searchParams = useSearchParams();
   const token = searchParams.get("Emailtoken");
   const [loading, setLoading] = useState(false);
@@ -39,7 +35,7 @@ const ResetPassword = () => {
         setSuccessMsg(response.data.message);
         setData({
           password: "",
-          confirmPassword: ""
+          confirmPassword: "",
         });
         setTimeout(() => {
           setResetPwd(false);
@@ -70,45 +66,45 @@ const ResetPassword = () => {
 
   return (
     <div className={styles.resetPassword}>
-      {
-        !showSignup && (
-          <div className={styles.card}>
-            <h2 className={styles.title}>Reset Your Password</h2>
-            <p className={styles.subtitle}>Please enter your new password below.</p>
-            <form className={styles.form} onSubmit={handleFormSubmission}>
-              <label htmlFor="password" className={styles.label}>
-                New Password
-              </label>
-              <input
-                type="password"
-                name="password"
-                className={styles.input}
-                onChange={handleOnchange}
-                placeholder="Enter new password"
-                required
-                value={data.password}
-              />
-              <label htmlFor="confirmPassword" className={styles.label}>
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                name="confirmPassword"
-                onChange={handleOnchange}
-                className={styles.input}
-                placeholder="Confirm new password"
-                required
-                value={data.confirmPassword}
-              />
-              <button disabled={loading} type="submit" className={styles.button}>
-                {loading ? "Loading..." : "Reset Password"}
-              </button>
-              {errorMsg && <p className={styles.errorMsg}>{errorMsg}</p>}
-              {successMsg && <p className={styles.successMsg}>{successMsg}</p>}
-            </form>
-          </div>
-        )
-      }
+      {!showSignup && (
+        <div className={styles.card}>
+          <h2 className={styles.title}>Reset Your Password</h2>
+          <p className={styles.subtitle}>
+            Please enter your new password below.
+          </p>
+          <form className={styles.form} onSubmit={handleFormSubmission}>
+            <label htmlFor="password" className={styles.label}>
+              New Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              className={styles.input}
+              onChange={handleOnchange}
+              placeholder="Enter new password"
+              required
+              value={data.password}
+            />
+            <label htmlFor="confirmPassword" className={styles.label}>
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              onChange={handleOnchange}
+              className={styles.input}
+              placeholder="Confirm new password"
+              required
+              value={data.confirmPassword}
+            />
+            <button disabled={loading} type="submit" className={styles.button}>
+              {loading ? "Loading..." : "Reset Password"}
+            </button>
+            {errorMsg && <p className={styles.errorMsg}>{errorMsg}</p>}
+            {successMsg && <p className={styles.successMsg}>{successMsg}</p>}
+          </form>
+        </div>
+      )}
     </div>
   );
 };

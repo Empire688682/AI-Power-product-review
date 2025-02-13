@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState } from "react";
 import styles from "./ResetPassword.module.css";
 import axios from "axios";
@@ -7,7 +7,7 @@ import { useGlobalContext } from "../Context";
 export default function ResetPassword() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const {setShowSignup} = useGlobalContext();
+  const { setShowSignup } = useGlobalContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
