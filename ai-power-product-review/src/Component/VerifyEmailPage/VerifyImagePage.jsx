@@ -21,6 +21,9 @@ const VerifyEmailPage = () => {
           const userData = response.data.data;
           localStorage.setItem("userData", JSON.stringify(userData));
           setMessage("Email verified successfully! Redirecting...");
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
         } else {
           setMessage("Verification failed. Please try again.");
         }
