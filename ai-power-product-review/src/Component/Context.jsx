@@ -5,7 +5,7 @@ import React, { useContext, useState, useEffect } from "react";
 const AppContext = React.createContext();
 
 export const AppProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState(null);
   const [error, setError] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
@@ -14,7 +14,7 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedData = localStorage.getItem("userData");
-      setUser(storedData && storedData !== "undefined" ? JSON.parse(storedData) : {});
+      setUser(storedData && storedData !== "undefined" ? JSON.parse(storedData) : null);
     }
   }, []);
 
