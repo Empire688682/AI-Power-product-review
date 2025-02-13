@@ -13,8 +13,13 @@ export const AppProvider = ({ children }) => {
   const [formPhase, setFormPhase] = useState("signup");
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const storedData = localStorage.getItem("userData");
-      setUser(storedData && storedData !== "undefined" ? JSON.parse(storedData) : null);
+      try {
+        const storedData = localStorage.getItem("userData");
+        setUser(storedData ? JSON.parse(storedData) : null);
+      } catch (error) {
+        console.error("Error parsing userData:", error);
+        setUser(null);
+      }
     }
   }, []);
 
