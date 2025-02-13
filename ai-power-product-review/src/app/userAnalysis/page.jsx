@@ -33,7 +33,7 @@ const UserAnalysis = () => {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("userId", user._id);
-      const response = await axios.post("/api/profileImage", formData);
+      const response = await axios.post("api/profileImage", formData);
       if (response.data.success) {
         if (typeof window !== "undefined") {
           localStorage.setItem(
