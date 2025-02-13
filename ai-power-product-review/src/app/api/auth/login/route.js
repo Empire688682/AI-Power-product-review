@@ -53,11 +53,11 @@ const loginUser = async (req) => {
       const emailVerified = await user.emailVerified;
       const verificationToken = user.verificationToken;
       const verificationLink =
-      `${process.env.BASE_URL}/verify-email?token=${verificationToken}&username=${user.username}` ||
-      "http://localhost:3000";
+        `${process.env.BASE_URL}/verify-email?token=${verificationToken}&username=${user.username}` ||
+        "http://localhost:3000";
 
       if (!emailVerified) {
-       await sendVerificationEmail(email, verificationLink);
+        await sendVerificationEmail(email, verificationLink);
         return NextResponse.json(
           {
             success: false,
