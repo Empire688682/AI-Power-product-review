@@ -5,7 +5,7 @@ export function middleware(req) {
   const token = req.cookies.get("AIToken")?.value || "";
   const userOnly = path === "/userAnalysis";
   const newUser = path === "/verify-email";
-  const resetPwd = path === "/resetpassword";
+  const resetPwd = path === "/resetingpassword";
   if (!token && userOnly) {
     return NextResponse.redirect(new URL("/", req.url), { status: 307 });
   }
@@ -21,6 +21,6 @@ export const config = {
     "/userAnalysis",
     "/analysis",
     "/verify-email",
-    "/resetpassword",
+    "/resetingpassword",
   ],
 };
