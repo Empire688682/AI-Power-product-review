@@ -50,8 +50,6 @@ const SignupForm = () => {
           password: "",
           confirmPassword: "",
         });
-        const userData = response.data.data;
-        localStorage.setItem("userData", JSON.stringify(userData));
         setDisableButton(true);
         setShowSignup(false);
         alert("An email has been sent to you to verify your account.");
