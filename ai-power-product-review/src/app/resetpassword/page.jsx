@@ -42,6 +42,9 @@ const ResetPassword = () => {
       const response = await axios.post("api/auth/resetPassword", formData);
       if (response.data.success) {
         setSuccessMsg(response.data.message);
+        setTimeout(()=>{
+          setResetPwd(true);
+        },2000)
       }
     } catch (error) {
       console.log("Error resetingPwd:", error);
