@@ -21,9 +21,6 @@ const VerifyEmailPage = () => {
           const userData = response.data.data;
           localStorage.setItem("userData", JSON.stringify(userData));
           setMessage("Email verified successfully! Redirecting...");
-          setTimeout(() => {
-            router.push("/userAnalysis");
-          }, 2000);
         } else {
           setMessage("Verification failed. Please try again.");
         }
