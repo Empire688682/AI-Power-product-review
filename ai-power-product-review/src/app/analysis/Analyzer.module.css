@@ -102,9 +102,15 @@
 
 .resultsArea h2 {
   color: #333;
+  margin-bottom: 15px;
 }
 
 .resultsArea p {
   font-size: 1rem;
   color: #555;
+}
+
+.chartResult span{
+  color: green;
+  font-weight: bolder;
 }

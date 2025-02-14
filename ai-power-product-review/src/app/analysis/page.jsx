@@ -5,6 +5,7 @@ import style from "./Analyzer.module.css";
 import axios from "axios";
 import PieChart from "@/Component/Charts/PieChart";
 import BarChart from "@/Component/Charts/BarChart";
+import LineChart from "@/Component/Charts/LineChart";
 
 const Analyzer = () => {
   const [reviewText, setReviewText] = useState({
@@ -21,8 +22,7 @@ const Analyzer = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [button, setButton] = useState("post");
-
-  console.log("sentimentData:", sentimentData);
+  const [totalWords, setTotalWords] = useState("")
 
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
@@ -44,7 +44,9 @@ const Analyzer = () => {
         const positiveLength = data.positive ? data.positive.length : 0;
         const negativeLength = data.negative ? data.negative.length : 0;
         const neutralLength = totalLength - positiveLength - negativeLength;
-  
+
+        setTotalWords(totalLength);
+
         setSentimentData({
           positive: positiveLength,
           negative: negativeLength,
@@ -107,7 +109,7 @@ const Analyzer = () => {
         >
           <option value="bar">Bar Chart</option>
           <option value="pie">Pie Chart</option>
-          <option value="custom">Custom Chart</option>
+          <option value="line">Line Chart</option>
         </select>
       </div>
 
@@ -161,6 +163,11 @@ const Analyzer = () => {
           </div>
           <div className={style.chartResult}>
             <h2>Charts Results</h2>
+            {
+              totalWords && (
+                <span>Total Words{totalWords}</span>
+              )
+            }
             <div className={style.chartCards}>
               {selectedChart === "pie" && (
                 <div className={style.chartCard}>
@@ -170,6 +177,11 @@ const Analyzer = () => {
               {selectedChart === "bar" && (
                 <div className={style.chartCard}>
                   <BarChart data={sentimentData} />
+                </div>
+              )}
+              {selectedChart === "line" && (
+                <div className={style.chartCard}>
+                  <LineChart data={sentimentData} />
                 </div>
               )}
             </div>

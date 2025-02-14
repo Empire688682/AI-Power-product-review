@@ -13,6 +13,7 @@ const UserAnalysis = () => {
   const [selectedChart, setSelectedChart] = useState("bar");
   const [image, setImage] = useState("");
   const [savedImage, setSavedImage] = useState("");
+   const [analysisResult, setAnalysisResult] = useState(null);
   const [sentimentData, setSentimentData] = useState({
     positive: 3,
     negative: 0,
@@ -33,6 +34,14 @@ const UserAnalysis = () => {
       edditImage();
     }
   }, [image]);
+
+  useEffect(()=>{
+    setAnalysisResult({
+      sentiment: "Positive",
+      confidence: 70 + "%",
+      keywords: ["goood", "awsome", "perfect", "awsome"],
+    });
+  },[])
 
   const edditImage = async () => {
     try {
@@ -89,25 +98,52 @@ const UserAnalysis = () => {
         >
           <option value="bar">Bar Chart</option>
           <option value="pie">Pie Chart</option>
-          <option value="custom">Custom Chart</option>
+          <option value="line">Line Chart</option>
         </select>
       </div>
 
-      <div className={style.chartContainer}>
-        <h2>Sentiment Analysis Results</h2>
-        <div className={style.chartCards}>
-          {selectedChart === "pie" && (
-            <div className={style.chartCard}>
-              <PieChart data={sentimentData} />
+      {/* Results Section */}
+      {analysisResult && (
+        <div className={style.resultsArea}>
+          <div className={style.plainResul}>
+            <h2>Analysis Results</h2>
+            <p>
+              <strong>Sentiment:</strong> {analysisResult.sentiment}
+            </p>
+            <p>
+              <strong>Confidence:</strong> {analysisResult.confidence}
+            </p>
+            <p>
+              <strong>Key Keywords:</strong> {analysisResult.keywords.join(", ")}
+            </p>
+          </div>
+          <div className={style.chartResult}>
+            <h2>Charts Results</h2>
+            {
+              totalWords && (
+                <span>Total Words{totalWords}</span>
+              )
+            }
+            <div className={style.chartCards}>
+              {selectedChart === "pie" && (
+                <div className={style.chartCard}>
+                  <PieChart data={sentimentData} />
+                </div>
+              )}
+              {selectedChart === "bar" && (
+                <div className={style.chartCard}>
+                  <BarChart data={sentimentData} />
+                </div>
+              )}
+              {selectedChart === "line" && (
+                <div className={style.chartCard}>
+                  <LineChart data={sentimentData} />
+                </div>
+              )}
             </div>
-          )}
-          {selectedChart === "bar" && (
-            <div className={style.chartCard}>
-              <BarChart data={sentimentData} />
-            </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
