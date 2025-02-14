@@ -84,12 +84,6 @@ const Analyzer = () => {
         if (maxConfidence > 100) {
           maxConfidence = 95;
         }
-  
-        setAnalysisResult({
-          sentiment: sentimentResult,
-          confidence: maxConfidence + "%",
-          keywords: data.words || [],
-        });
 
         setReviewData({
           sentiment: sentimentResult,
@@ -102,6 +96,13 @@ const Analyzer = () => {
             neutral: neutralLength,
           }
         });
+  
+        setAnalysisResult({
+          sentiment: sentimentResult,
+          confidence: maxConfidence + "%",
+          keywords: data.words || [],
+        });
+
 
         if(user && user._id){
           addUserData(reviewData)
