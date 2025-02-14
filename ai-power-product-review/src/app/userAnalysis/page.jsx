@@ -14,8 +14,8 @@ const UserAnalysis = () => {
   const [selectedChart, setSelectedChart] = useState("bar");
   const [image, setImage] = useState("");
   const [savedImage, setSavedImage] = useState("");
-   const [analysisResult, setAnalysisResult] = useState(null);
-   const [totalWords, setTotalWords] = useState(20);
+  const [analysisResult, setAnalysisResult] = useState(null);
+  const [totalWords, setTotalWords] = useState(20);
   const [sentimentData, setSentimentData] = useState({
     positive: 3,
     negative: 0,
@@ -37,13 +37,13 @@ const UserAnalysis = () => {
     }
   }, [image]);
 
-  useEffect(()=>{
+  useEffect(() => {
     setAnalysisResult({
       sentiment: "Positive",
       confidence: 70 + "%",
       keywords: ["goood", "awsome", "perfect", "awsome"],
     });
-  },[])
+  }, []);
 
   const edditImage = async () => {
     try {
@@ -68,7 +68,7 @@ const UserAnalysis = () => {
   return (
     <div className={style.container}>
       <div className={style.containerHeader}>
-      <h1>
+        <h1>
           <FaHeart className={style.icon} />
           {user.username} Analysis
         </h1>
@@ -116,16 +116,13 @@ const UserAnalysis = () => {
               <strong>Confidence:</strong> {analysisResult.confidence}
             </p>
             <p>
-              <strong>Key Keywords:</strong> {analysisResult.keywords.join(", ")}
+              <strong>Key Keywords:</strong>{" "}
+              {analysisResult.keywords.join(", ")}
             </p>
           </div>
           <div className={style.chartResult}>
             <h2>Charts Results</h2>
-            {
-              totalWords && (
-                <span>Total Words{totalWords}</span>
-              )
-            }
+            {totalWords && <span>Total Words{totalWords}</span>}
             <div className={style.chartCards}>
               {selectedChart === "pie" && (
                 <div className={style.chartCard}>

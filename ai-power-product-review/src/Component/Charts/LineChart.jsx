@@ -9,7 +9,14 @@ import {
   PointElement,
 } from "chart.js";
 
-ChartJS.register(LineElement, Tooltip, Legend, CategoryScale, LinearScale, PointElement);
+ChartJS.register(
+  LineElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+);
 
 const LineChart = ({ data }) => {
   const chartData = {

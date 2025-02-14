@@ -18,47 +18,47 @@ const Analyzer = () => {
     positive: 0,
     negative: 0,
     neutral: 0,
-  })
+  });
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [button, setButton] = useState("post");
   const [totalWords, setTotalWords] = useState("");
-  const {user} = useGlobalContext();
+  const { user } = useGlobalContext();
   const [userId, setUserId] = useState("");
-   const [reviewData, setReviewData] = useState({
-      sentiment:"Neutral",
-      confidency:"0%",
-      keywords:[],
-      charts:{
-        totalWords:0,
-        positive:0,
-        negative:0,
-        neutral:0,
-      }
-    });
+  const [reviewData, setReviewData] = useState({
+    sentiment: "Neutral",
+    confidency: "0%",
+    keywords: [],
+    charts: {
+      totalWords: 0,
+      positive: 0,
+      negative: 0,
+      neutral: 0,
+    },
+  });
 
-    useEffect(()=>{
-      if(user && user._id){
+  useEffect(() => {
+    if (user && user._id) {
       setUserId(user._id);
-      }
-    },[])
+    }
+  }, []);
 
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
       alert("Please enter a review to analyze.");
       return;
     }
-  
+
     try {
       setLoading(true);
       const response = await axios.post(`api/allData/analyzer`, reviewText, {
         headers: { "Content-Type": "application/json" },
       });
-  
+
       if (response.data.success) {
         const data = response.data.data;
-  
+
         // Add checks to avoid accessing undefined values
         const totalLength = data.tokens ? data.tokens.length : 0;
         const positiveLength = data.positive ? data.positive.length : 0;
@@ -72,14 +72,14 @@ const Analyzer = () => {
           negative: negativeLength,
           neutral: neutralLength,
         });
-  
+
         let sentimentResult = "Neutral";
         if (data.score < 0) {
           sentimentResult = "Negative";
         } else if (data.score > 0) {
           sentimentResult = "Positive";
         }
-  
+
         let maxConfidence = data.score * 10;
         if (maxConfidence > 100) {
           maxConfidence = 95;
@@ -94,20 +94,19 @@ const Analyzer = () => {
             positive: positiveLength,
             negative: negativeLength,
             neutral: neutralLength,
-          }
+          },
         });
-  
+
         setAnalysisResult({
           sentiment: sentimentResult,
           confidence: maxConfidence + "%",
           keywords: data.words || [],
         });
 
-
-        if(user && user._id){
-          addUserData(reviewData)
+        if (user && user._id) {
+          addUserData(reviewData);
         }
-  
+
         setButton("reset");
       }
     } catch (error) {
@@ -120,34 +119,36 @@ const Analyzer = () => {
       setLoading(false);
     }
   };
-  
 
   const handleInputOnchange = (e) => {
     const { value, name } = e.target;
     setReviewText((prev) => ({ ...prev, [name]: value }));
   };
 
-  const addUserData = async (data) =>{
+  const addUserData = async (data) => {
     try {
-      const response = await axios.post("api/allData/addData", {data, userId});
-      if(response.data.success){
+      const response = await axios.post("api/allData/addData", {
+        data,
+        userId,
+      });
+      if (response.data.success) {
         setData({
-          sentiment:"Neutral",
-          confidency:"",
-          keywords:[],
-          charts:{
-            totalWords:0,
-            positive:0,
-            negative:0,
-            neutral:0,
-          }
-        })
+          sentiment: "Neutral",
+          confidency: "",
+          keywords: [],
+          charts: {
+            totalWords: 0,
+            positive: 0,
+            negative: 0,
+            neutral: 0,
+          },
+        });
       }
     } catch (error) {
       console.log("ERROR:", error);
       alert("Error adding data");
     }
-  }
+  };
 
   return (
     <div className={style.container}>
@@ -217,16 +218,13 @@ const Analyzer = () => {
               <strong>Confidence:</strong> {analysisResult.confidence}
             </p>
             <p>
-              <strong>Key Keywords:</strong> {analysisResult.keywords.join(", ")}
+              <strong>Key Keywords:</strong>{" "}
+              {analysisResult.keywords.join(", ")}
             </p>
           </div>
           <div className={style.chartResult}>
             <h2>Charts Results</h2>
-            {
-              totalWords && (
-                <span>Total Words{totalWords}</span>
-              )
-            }
+            {totalWords && <span>Total Words{totalWords}</span>}
             <div className={style.chartCards}>
               {selectedChart === "pie" && (
                 <div className={style.chartCard}>

@@ -11,7 +11,7 @@ export const AppProvider = ({ children }) => {
   const [showSignup, setShowSignup] = useState(false);
   const [resetPwd, setResetPwd] = useState(false);
   const [formPhase, setFormPhase] = useState("signup");
- 
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {

@@ -72,7 +72,7 @@
   justify-content: center;
 }
 
-.chartCard{
+.chartCard {
   width: 70%;
   max-width: 500px;
   height: 70%;
@@ -99,7 +99,7 @@
   color: #555;
 }
 
-.chartResult span{
+.chartResult span {
   color: green;
   font-weight: bolder;
 }

@@ -32,7 +32,6 @@
   text-align: center;
 }
 
-
 .chartSelector {
   margin: 20px 0;
 }
@@ -110,7 +109,7 @@
   color: #555;
 }
 
-.chartResult span{
+.chartResult span {
   color: green;
   font-weight: bolder;
 }
