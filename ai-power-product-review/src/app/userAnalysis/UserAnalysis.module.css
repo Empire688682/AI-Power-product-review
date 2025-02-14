@@ -65,8 +65,19 @@
 }
 
 .chartCards {
-  height: 100%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.chartCard{
+  width: 70%;
+  max-width: 500px;
+  height: 70%;
+}
+
 .resultsArea {
   margin-top: 2rem;
   padding: 1.5rem;
