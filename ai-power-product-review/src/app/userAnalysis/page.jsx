@@ -14,6 +14,7 @@ const UserAnalysis = () => {
   const [image, setImage] = useState("");
   const [savedImage, setSavedImage] = useState("");
    const [analysisResult, setAnalysisResult] = useState(null);
+   const [totalWords, setTotalWords] = useState(20);
   const [sentimentData, setSentimentData] = useState({
     positive: 3,
     negative: 0,
