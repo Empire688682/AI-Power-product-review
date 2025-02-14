@@ -7,6 +7,7 @@ import Image from "next/image";
 import axios from "axios";
 import PieChart from "@/Component/Charts/PieChart";
 import BarChart from "@/Component/Charts/BarChart";
+import LineChart from "@/Component/Charts/LineChart";
 
 const UserAnalysis = () => {
   const { user } = useGlobalContext();
