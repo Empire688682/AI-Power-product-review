@@ -5,13 +5,19 @@ import { FaHeart } from "react-icons/fa";
 import { useGlobalContext } from "@/Component/Context";
 import Image from "next/image";
 import axios from "axios";
+import PieChart from "@/Component/Charts/PieChart";
+import BarChart from "@/Component/Charts/BarChart";
 
 const UserAnalysis = () => {
   const { user } = useGlobalContext();
   const [selectedChart, setSelectedChart] = useState("bar");
   const [image, setImage] = useState("");
-
   const [savedImage, setSavedImage] = useState("");
+  const [sentimentData, setSentimentData] = useState({
+    positive: 70,
+    negative: 20,
+    neutral: 10,
+  });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -88,9 +94,23 @@ const UserAnalysis = () => {
       </div>
 
       <div className={style.chartContainer}>
-        <p>
-          Chart will be displayed here based on user selection ({selectedChart})
-        </p>
+        <h2>Sentiment Analysis Results</h2>
+        <div className={style.chartCards}>
+         {
+          selectedChart === "pie" && (
+            <div className={style.chartCard}>
+            <PieChart data={sentimentData} />
+          </div>
+          )
+         }
+         {
+          selectedChart === "bar" && (
+            <div className={style.chartCard}>
+            <BarChart data={sentimentData} />
+          </div>
+          )
+         }
+        </div>
       </div>
     </div>
   );
