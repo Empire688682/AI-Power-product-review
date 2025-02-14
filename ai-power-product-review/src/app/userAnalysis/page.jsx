@@ -96,20 +96,16 @@ const UserAnalysis = () => {
       <div className={style.chartContainer}>
         <h2>Sentiment Analysis Results</h2>
         <div className={style.chartCards}>
-         {
-          selectedChart === "pie" && (
+          {selectedChart === "pie" && (
             <div className={style.chartCard}>
-            <PieChart data={sentimentData} />
-          </div>
-          )
-         }
-         {
-          selectedChart === "bar" && (
+              <PieChart data={sentimentData} />
+            </div>
+          )}
+          {selectedChart === "bar" && (
             <div className={style.chartCard}>
-            <BarChart data={sentimentData} />
-          </div>
-          )
-         }
+              <BarChart data={sentimentData} />
+            </div>
+          )}
         </div>
       </div>
     </div>
