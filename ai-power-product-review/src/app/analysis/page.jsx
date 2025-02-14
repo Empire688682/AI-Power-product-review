@@ -12,7 +12,7 @@ const Analyzer = () => {
   });
   const [analysisResult, setAnalysisResult] = useState(null);
   const [selectedChart, setSelectedChart] = useState("bar");
-  const [sentimentData, setSentimentData] = ({
+  const [sentimentData, setSentimentData] = useState({
     positive: 0,
     negative: 0,
     neutral: 0,
@@ -22,49 +22,58 @@ const Analyzer = () => {
   const [error, setError] = useState(null);
   const [button, setButton] = useState("post");
 
+  console.log("sentimentData:", sentimentData);
+
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
       alert("Please enter a review to analyze.");
       return;
     }
-
+  
     try {
       setLoading(true);
       const response = await axios.post(`api/allData/analyzer`, reviewText, {
         headers: { "Content-Type": "application/json" },
       });
+  
       if (response.data.success) {
+        const data = response.data.data;
+  
+        // Add checks to avoid accessing undefined values
+        const totalLength = data.tokens ? data.tokens.length : 0;
+        const positiveLength = data.positive ? data.positive.length : 0;
+        const negativeLength = data.negative ? data.negative.length : 0;
+        const neutralLength = totalLength - positiveLength - negativeLength;
+  
+        setSentimentData({
+          positive: positiveLength,
+          negative: negativeLength,
+          neutral: neutralLength,
+        });
+  
         let sentimentResult = "Neutral";
-        if (response.data.data.score < 0) {
+        if (data.score < 0) {
           sentimentResult = "Negative";
-        } else if (response.data.data.score > 0) {
+        } else if (data.score > 0) {
           sentimentResult = "Positive";
         }
-        let maxConfidence = response.data.data.score * 10;
+  
+        let maxConfidence = data.score * 10;
         if (maxConfidence > 100) {
           maxConfidence = 95;
         }
+  
         setAnalysisResult({
           sentiment: sentimentResult,
           confidence: maxConfidence + "%",
-          keywords: response.data.data.words,
+          keywords: data.words || [],
         });
+  
         setButton("reset");
-        const clickedElement = document.getElementById("textArea").focus();
-        if (clickedElement) {
-          setAnalysisResult(null);
-        }
       }
-      console.log("RESPONSE:", response);
     } catch (error) {
-      console.log("Error:", error);
-      setError(() => {
-        if (error.response.data.message === "Text is too long to analyze") {
-          return error.response.data.message;
-        } else {
-          return "An error occured, try again later";
-        }
-      });
+      console.error("Error:", error);
+      setError("An error occurred during analysis.");
       setTimeout(() => {
         setError(null);
       }, 2000);
@@ -72,6 +81,7 @@ const Analyzer = () => {
       setLoading(false);
     }
   };
+  
 
   const handleInputOnchange = (e) => {
     const { value, name } = e.target;
@@ -150,7 +160,7 @@ const Analyzer = () => {
             </p>
           </div>
           <div className={style.chartResult}>
-            <h2>Sentiment Analysis Results</h2>
+            <h2>Charts Results</h2>
             <div className={style.chartCards}>
               {selectedChart === "pie" && (
                 <div className={style.chartCard}>

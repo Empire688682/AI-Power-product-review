@@ -32,6 +32,21 @@
   text-align: center;
 }
 
+
+.chartSelector {
+  margin: 20px 0;
+}
+
+.chartSelector label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.chartSelector select {
+  padding: 5px;
+  font-size: 16px;
+}
+
 .analyzerBox {
   display: flex;
   flex-direction: column;
@@ -80,6 +95,9 @@
   background: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .resultsArea h2 {
