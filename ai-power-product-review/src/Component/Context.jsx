@@ -11,17 +11,7 @@ export const AppProvider = ({ children }) => {
   const [showSignup, setShowSignup] = useState(false);
   const [resetPwd, setResetPwd] = useState(false);
   const [formPhase, setFormPhase] = useState("signup");
-  const [data, setData] = useState({
-    sentiment:"",
-    confidency:"",
-    keywords:[],
-    charts:{
-      totalWords:0,
-      positive:0,
-      negative:0,
-      neutral:0,
-    }
-  })
+ 
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
@@ -33,14 +23,6 @@ export const AppProvider = ({ children }) => {
       }
     }
   }, []);
-
-  const addUserData = async (userId, data) =>{
-    try {
-      
-    } catch (error) {
-      
-    }
-  }
 
   const logoutUser = async () => {
     try {

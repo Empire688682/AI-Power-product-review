@@ -1,11 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import style from "./Analyzer.module.css";
 import axios from "axios";
 import PieChart from "@/Component/Charts/PieChart";
 import BarChart from "@/Component/Charts/BarChart";
 import LineChart from "@/Component/Charts/LineChart";
+import { useGlobalContext } from "@/Component/Context";
 
 const Analyzer = () => {
   const [reviewText, setReviewText] = useState({
@@ -22,7 +23,26 @@ const Analyzer = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [button, setButton] = useState("post");
-  const [totalWords, setTotalWords] = useState("")
+  const [totalWords, setTotalWords] = useState("");
+  const {user} = useGlobalContext();
+  const [userId, setUserId] = useState("");
+   const [reviewData, setReviewData] = useState({
+      sentiment:"Neutral",
+      confidency:"0%",
+      keywords:[],
+      charts:{
+        totalWords:0,
+        positive:0,
+        negative:0,
+        neutral:0,
+      }
+    });
+
+    useEffect(()=>{
+      if(user && user._id){
+      setUserId(user._id);
+      }
+    },[])
 
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
@@ -70,6 +90,22 @@ const Analyzer = () => {
           confidence: maxConfidence + "%",
           keywords: data.words || [],
         });
+
+        setReviewData({
+          sentiment: sentimentResult,
+          confidency: maxConfidence + "%",
+          keywords: data.words || [],
+          charts: {
+            totalWords: totalLength,
+            positive: positiveLength,
+            negative: negativeLength,
+            neutral: neutralLength,
+          }
+        });
+
+        if(user && user._id){
+          addUserData(reviewData)
+        }
   
         setButton("reset");
       }
@@ -89,6 +125,28 @@ const Analyzer = () => {
     const { value, name } = e.target;
     setReviewText((prev) => ({ ...prev, [name]: value }));
   };
+
+  const addUserData = async (data) =>{
+    try {
+      const response = await axios.post("api/allData/addData", {data, userId});
+      if(response.data.success){
+        setData({
+          sentiment:"Neutral",
+          confidency:"",
+          keywords:[],
+          charts:{
+            totalWords:0,
+            positive:0,
+            negative:0,
+            neutral:0,
+          }
+        })
+      }
+    } catch (error) {
+      console.log("ERROR:", error);
+      alert("Error adding data");
+    }
+  }
 
   return (
     <div className={style.container}>
