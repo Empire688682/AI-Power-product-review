@@ -25,7 +25,6 @@ const Analyzer = () => {
   const [button, setButton] = useState("post");
   const [totalWords, setTotalWords] = useState("");
   const { user } = useGlobalContext();
-  const [userId, setUserId] = useState("");
   const [reviewData, setReviewData] = useState({
     sentiment: "Neutral",
     confidency: "0%",
@@ -37,12 +36,6 @@ const Analyzer = () => {
       neutral: 0,
     },
   });
-
-  useEffect(() => {
-    if (user && user._id) {
-      setUserId(user._id);
-    }
-  }, []);
 
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
@@ -126,11 +119,9 @@ const Analyzer = () => {
   };
 
   const addUserData = async (data) => {
+    console.log("USERID:", user._id)
     try {
-      const response = await axios.post("api/allData/addData", {
-        data,
-        userId,
-      });
+      const response = await axios.post("api/allData/addData", {data}, {userId:user._id});
       if (response.data.success) {
         setData({
           sentiment: "Neutral",
