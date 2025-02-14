@@ -68,6 +68,10 @@ const UserAnalysis = () => {
   return (
     <div className={style.container}>
       <div className={style.containerHeader}>
+      <h1>
+          <FaHeart className={style.icon} />
+          {user.username} Analysis
+        </h1>
         <Image
           className={style.userImg}
           src={savedImage ? `${savedImage}` : "/avatar_icon.png"}
@@ -85,10 +89,6 @@ const UserAnalysis = () => {
           id="image"
           hidden
         />
-        <h1>
-          <FaHeart className={style.icon} />
-          {user.username} Analysis
-        </h1>
       </div>
 
       <div className={style.chartSelector}>
