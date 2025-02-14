@@ -119,9 +119,13 @@ const Analyzer = () => {
   };
 
   const addUserData = async (data) => {
-    console.log("USERID:", user._id)
+    console.log("USERID:", user._id);
     try {
-      const response = await axios.post("api/allData/addData", {data}, {userId:user._id});
+      const response = await axios.post(
+        "api/allData/addData",
+        { data },
+        { userId: user._id },
+      );
       if (response.data.success) {
         setData({
           sentiment: "Neutral",
