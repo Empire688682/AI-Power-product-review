@@ -3,12 +3,20 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import style from "./Analyzer.module.css";
 import axios from "axios";
+import PieChart from "@/Component/Charts/PieChart";
+import BarChart from "@/Component/Charts/BarChart";
 
 const Analyzer = () => {
   const [reviewText, setReviewText] = useState({
     text: "",
   });
   const [analysisResult, setAnalysisResult] = useState(null);
+  const [selectedChart, setSelectedChart] = useState("bar");
+  const [sentimentData, setSentimentData] = ({
+    positive: 0,
+    negative: 0,
+    neutral: 0,
+  })
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -47,6 +55,7 @@ const Analyzer = () => {
           setAnalysisResult(null);
         }
       }
+      console.log("RESPONSE:", response);
     } catch (error) {
       console.log("Error:", error);
       setError(() => {
@@ -77,6 +86,19 @@ const Analyzer = () => {
           ← Back to Home
         </button>
         <h1>Review Sentiment Analyzer</h1>
+      </div>
+
+      <div className={style.chartSelector}>
+        <label htmlFor="chartType">Select Chart Type:</label>
+        <select
+          id="chartType"
+          value={selectedChart}
+          onChange={(e) => setSelectedChart(e.target.value)}
+        >
+          <option value="bar">Bar Chart</option>
+          <option value="pie">Pie Chart</option>
+          <option value="custom">Custom Chart</option>
+        </select>
       </div>
 
       {/* Input Section */}
@@ -115,16 +137,33 @@ const Analyzer = () => {
       {/* Results Section */}
       {analysisResult && (
         <div className={style.resultsArea}>
-          <h2>Analysis Results</h2>
-          <p>
-            <strong>Sentiment:</strong> {analysisResult.sentiment}
-          </p>
-          <p>
-            <strong>Confidence:</strong> {analysisResult.confidence}
-          </p>
-          <p>
-            <strong>Key Keywords:</strong> {analysisResult.keywords.join(", ")}
-          </p>
+          <div className={style.plainResul}>
+            <h2>Analysis Results</h2>
+            <p>
+              <strong>Sentiment:</strong> {analysisResult.sentiment}
+            </p>
+            <p>
+              <strong>Confidence:</strong> {analysisResult.confidence}
+            </p>
+            <p>
+              <strong>Key Keywords:</strong> {analysisResult.keywords.join(", ")}
+            </p>
+          </div>
+          <div className={style.chartResult}>
+            <h2>Sentiment Analysis Results</h2>
+            <div className={style.chartCards}>
+              {selectedChart === "pie" && (
+                <div className={style.chartCard}>
+                  <PieChart data={sentimentData} />
+                </div>
+              )}
+              {selectedChart === "bar" && (
+                <div className={style.chartCard}>
+                  <BarChart data={sentimentData} />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>

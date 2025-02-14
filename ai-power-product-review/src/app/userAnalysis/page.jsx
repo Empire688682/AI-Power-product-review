@@ -14,9 +14,9 @@ const UserAnalysis = () => {
   const [image, setImage] = useState("");
   const [savedImage, setSavedImage] = useState("");
   const [sentimentData, setSentimentData] = useState({
-    positive: 70,
-    negative: 20,
-    neutral: 10,
+    positive: 3,
+    negative: 0,
+    neutral: 14,
   });
 
   useEffect(() => {
