@@ -6,6 +6,7 @@ import { LiaTimesSolid } from "react-icons/lia";
 import axios from "axios";
 import { useGlobalContext } from "../Context";
 import ResetPassword from "../ResetPassword/ResetPassword";
+import { useRouter } from "next/navigation";
 
 const SignupForm = () => {
   const {
@@ -23,6 +24,7 @@ const SignupForm = () => {
     password: "",
     confirmPassword: "",
   });
+  const router = useRouter();
 
   const [loading, setLoading] = useState(false);
   const { error, setError } = useGlobalContext();
@@ -60,6 +62,7 @@ const SignupForm = () => {
         const userData = response.data.data;
         localStorage.setItem("userData", JSON.stringify(userData));
         window.location.reload();
+        router.push("/analysis");
       }
     } catch (error) {
       console.error(error);
