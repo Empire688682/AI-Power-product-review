@@ -5,11 +5,21 @@ export function middleware(req) {
   const token = req.cookies.get("AIToken")?.value || "";
   const newUser = path === "/verify-email";
   const resetPwd = path === "/resetingpassword";
+  const userOnly = path === "/analysis";
+  if (!token && userOnly) {
+    return NextResponse.redirect(new URL("/", req.url), { status: 307 });
+  }
   if (token && (newUser || resetPwd)) {
     return NextResponse.redirect(new URL("/", req.url), { status: 307 });
   }
 }
 
 export const config = {
-  matcher: ["/", "/about", "/analysis", "/verify-email", "/resetingpassword"],
+  matcher: [
+    "/",
+    "/about",
+    "/analysis",
+    "/verify-email",
+    "/resetingpassword",
+  ],
 };

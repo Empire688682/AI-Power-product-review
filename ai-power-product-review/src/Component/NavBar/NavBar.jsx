@@ -53,16 +53,24 @@ const NavBar = () => {
         >
           Home
         </Link>
-        <Link
-          style={{ textDecoration: "none" }}
-          className={
-            pathname === "analysis" ? `${style.active}` : `${style.menu}`
-          }
-          href="/analysis"
-          onClick={() => setIsOpen(false)}
-        >
-          Analysis
-        </Link>
+        {
+          user ? (
+            <Link
+              style={{ textDecoration: "none" }}
+              className={
+                pathname === "analysis" ? `${style.active}` : `${style.menu}`
+              }
+              href="/analysis"
+              onClick={() => setIsOpen(false)}
+            >
+              Analysis
+            </Link>
+          )
+          :
+          (
+            <p className={style.menu} onClick={() => {setShowSignup(true); setIsOpen(false)}}>Analysis</p>
+          )
+        }
         <Link
           style={{ textDecoration: "none" }}
           className={pathname === "about" ? `${style.active}` : `${style.menu}`}

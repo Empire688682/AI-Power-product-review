@@ -27,6 +27,7 @@
   color: #333;
   font-weight: 500;
   transition: color 0.3s ease;
+  cursor: pointer;
 }
 .active {
   color: #007bff;

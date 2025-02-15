@@ -7,6 +7,7 @@ import PieChart from "@/Component/Charts/PieChart";
 import BarChart from "@/Component/Charts/BarChart";
 import LineChart from "@/Component/Charts/LineChart";
 import { useGlobalContext } from "@/Component/Context";
+import { FaHeart } from "react-icons/fa";
 
 const Analyzer = () => {
   const [reviewText, setReviewText] = useState({
@@ -24,7 +25,7 @@ const Analyzer = () => {
   const [error, setError] = useState(null);
   const [button, setButton] = useState("post");
   const [totalWords, setTotalWords] = useState("");
-  const { user, setShowSignup } = useGlobalContext();
+  const { user } = useGlobalContext();
 
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
@@ -91,14 +92,14 @@ const Analyzer = () => {
     setReviewText((prev) => ({ ...prev, [name]: value }));
   };
 
-  if (!user._id) {
-    setShowSignup(true);
-    return;
-  }
-
   return (
     <div className={style.container}>
-      {/* Header with Back Button */}
+      {
+        user._id &&
+        <div className={style.userSection}>
+          <h2><FaHeart className={style.icon} /> {user.username} <FaHeart className={style.icon} /></h2>
+        </div>
+      }
       <div className={style.header}>
         <button className={style.backBtn} onClick={() => router.push("/")}>
           ← Back to Home
