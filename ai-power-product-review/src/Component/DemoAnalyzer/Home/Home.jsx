@@ -3,17 +3,20 @@ import React, { useEffect, useState } from "react";
 import style from "./Home.module.css";
 import DemoAnalyzer from "../DemoAnalyzer";
 import { useRouter } from "next/navigation";
+import { useGlobalContext } from "@/Component/Context";
 
 const Home = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const {user, setShowSignup} = useGlobalContext();
   const [showDemo, setShowDemo] = useState(false);
-  const [isPermitted, setIsPermitted] = useState(false);
 
   const router = useRouter();
 
   const handleGetStarted = () => {
-    setIsPermitted(true);
-    router.push("/analysis");
+    if(user._id){
+      router.push("/analysis");
+    }else{
+      setShowSignup(true);
+    }
   };
 
   return (
@@ -24,7 +27,6 @@ const Home = () => {
         <p className={style.heroSubtitle}>
           Understand customer sentiment instantly with advanced AI analysis
         </p>
-        {!isLoggedIn && (
           <div className={style.heroButtons}>
             <button className={style.primaryBtn} onClick={handleGetStarted}>
               Get Started Free
@@ -36,7 +38,6 @@ const Home = () => {
               See Demo
             </button>
           </div>
-        )}
       </section>
 
       {showDemo && (
@@ -63,23 +64,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* Analysis Section (visible only for logged-in users) */}
-      {isLoggedIn && (
-        <section className={style.analysisSection}>
-          <div className={style.analyzerContainer}>
-            <h2>Analyze Reviews</h2>
-            <textarea
-              className={style.inputArea}
-              placeholder="Paste your review here..."
-            />
-            <button className={style.analyzeBtn}>Analyze Sentiment</button>
-          </div>
-          <div className={style.resultsArea}>
-            {/* Results will be displayed here */}
-          </div>
-        </section>
-      )}
     </div>
   );
 };

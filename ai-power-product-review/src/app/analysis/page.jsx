@@ -24,18 +24,7 @@ const Analyzer = () => {
   const [error, setError] = useState(null);
   const [button, setButton] = useState("post");
   const [totalWords, setTotalWords] = useState("");
-  const { user } = useGlobalContext();
-  const [reviewData, setReviewData] = useState({
-    sentiment: "Neutral",
-    confidency: "0%",
-    keywords: [],
-    charts: {
-      totalWords: 0,
-      positive: 0,
-      negative: 0,
-      neutral: 0,
-    },
-  });
+  const { user,setShowSignup } = useGlobalContext();
 
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
@@ -78,27 +67,11 @@ const Analyzer = () => {
           maxConfidence = 95;
         }
 
-        setReviewData({
-          sentiment: sentimentResult,
-          confidency: maxConfidence + "%",
-          keywords: data.words || [],
-          charts: {
-            totalWords: totalLength,
-            positive: positiveLength,
-            negative: negativeLength,
-            neutral: neutralLength,
-          },
-        });
-
         setAnalysisResult({
           sentiment: sentimentResult,
           confidence: maxConfidence + "%",
           keywords: data.words || [],
         });
-
-        if (user && user._id) {
-          addUserData(reviewData);
-        }
 
         setButton("reset");
       }
@@ -118,31 +91,9 @@ const Analyzer = () => {
     setReviewText((prev) => ({ ...prev, [name]: value }));
   };
 
-  const addUserData = async (data) => {
-    console.log("USERID:", user._id);
-    try {
-      const response = await axios.post(
-        "api/allData/addData",
-        { data },
-        { userId: user._id },
-      );
-      if (response.data.success) {
-        setData({
-          sentiment: "Neutral",
-          confidency: "",
-          keywords: [],
-          charts: {
-            totalWords: 0,
-            positive: 0,
-            negative: 0,
-            neutral: 0,
-          },
-        });
-      }
-    } catch (error) {
-      console.log("ERROR:", error);
-      alert("Error adding data");
-    }
+  if(!user._id){
+    setShowSignup(true);
+    return;
   };
 
   return (
@@ -219,7 +170,7 @@ const Analyzer = () => {
           </div>
           <div className={style.chartResult}>
             <h2>Charts Results</h2>
-            {totalWords && <span>Total Words{totalWords}</span>}
+            {totalWords && <span>Total Words: {totalWords}</span>}
             <div className={style.chartCards}>
               {selectedChart === "pie" && (
                 <div className={style.chartCard}>
