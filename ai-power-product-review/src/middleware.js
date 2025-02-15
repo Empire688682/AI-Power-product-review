@@ -11,11 +11,5 @@ export function middleware(req) {
 }
 
 export const config = {
-  matcher: [
-    "/",
-    "/about",
-    "/analysis",
-    "/verify-email",
-    "/resetingpassword",
-  ],
+  matcher: ["/", "/about", "/analysis", "/verify-email", "/resetingpassword"],
 };

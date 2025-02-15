@@ -24,7 +24,7 @@ const Analyzer = () => {
   const [error, setError] = useState(null);
   const [button, setButton] = useState("post");
   const [totalWords, setTotalWords] = useState("");
-  const { user,setShowSignup } = useGlobalContext();
+  const { user, setShowSignup } = useGlobalContext();
 
   const handleAnalyze = async () => {
     if (reviewText.text.trim() === "") {
@@ -91,10 +91,10 @@ const Analyzer = () => {
     setReviewText((prev) => ({ ...prev, [name]: value }));
   };
 
-  if(!user._id){
+  if (!user._id) {
     setShowSignup(true);
     return;
-  };
+  }
 
   return (
     <div className={style.container}>

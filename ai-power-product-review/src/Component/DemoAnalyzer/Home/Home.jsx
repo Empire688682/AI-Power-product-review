@@ -6,15 +6,15 @@ import { useRouter } from "next/navigation";
 import { useGlobalContext } from "@/Component/Context";
 
 const Home = () => {
-  const {user, setShowSignup} = useGlobalContext();
+  const { user, setShowSignup } = useGlobalContext();
   const [showDemo, setShowDemo] = useState(false);
 
   const router = useRouter();
 
   const handleGetStarted = () => {
-    if(user._id){
+    if (user._id) {
       router.push("/analysis");
-    }else{
+    } else {
       setShowSignup(true);
     }
   };
@@ -27,17 +27,17 @@ const Home = () => {
         <p className={style.heroSubtitle}>
           Understand customer sentiment instantly with advanced AI analysis
         </p>
-          <div className={style.heroButtons}>
-            <button className={style.primaryBtn} onClick={handleGetStarted}>
-              Get Started Free
-            </button>
-            <button
-              className={style.secondaryBtn}
-              onClick={() => setShowDemo(true)}
-            >
-              See Demo
-            </button>
-          </div>
+        <div className={style.heroButtons}>
+          <button className={style.primaryBtn} onClick={handleGetStarted}>
+            Get Started Free
+          </button>
+          <button
+            className={style.secondaryBtn}
+            onClick={() => setShowDemo(true)}
+          >
+            See Demo
+          </button>
+        </div>
       </section>
 
       {showDemo && (
