@@ -5,12 +5,14 @@ import SignupForm from "../SignupForm/SignupForm";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useGlobalContext } from "../Context";
+import { useRouter } from "next/navigation";
 
 const NavBar = () => {
   const { user, logoutUser, setShowSignup, showSignup, setIsOpen, isOpen } =
     useGlobalContext();
   const rawPathname = usePathname();
   const pathname = rawPathname === "/" ? "home" : rawPathname.replace("/", "");
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -35,7 +37,7 @@ const NavBar = () => {
   return (
     <nav className={style.navbar}>
       <div className={style.logo}>
-        <h1>AI-Power Review Analyzer</h1>
+        <h1 onClick={() => router.push("/")}>AI-Power Review Analyzer</h1>
       </div>
 
       <div className={style.hamburger} onClick={toggleMenu}>
